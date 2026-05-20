@@ -224,6 +224,11 @@ export interface DiagnosticResult {
   profile: string;
   weeklyHours: string;
   priority: string;
+  // Maturity index (from aiUsage answer)
+  maturityKey: import('@/data/benchmark').MaturityKey;
+  maturityLabel: string;
+  // Top opportunity areas (3 most relevant based on top service)
+  topOpportunities: import('@/data/benchmark').OpportunityId[];
 }
 
 export function buildResult(answers: WizardAnswers): DiagnosticResult {
@@ -286,6 +291,40 @@ export function buildResult(answers: WizardAnswers): DiagnosticResult {
   };
   const priority = priorityAnswer ? (priorityMap[priorityAnswer] ?? priorityAnswer) : 'No especificado';
 
+  // Compute AI maturity from aiUsage answer
+  const aiUsageAnswer = answers['aiUsage'] as string | undefined;
+  const maturityMap: Record<string, import('@/data/benchmark').MaturityKey> = {
+    no_uso:     'inicial',
+    no_se:      'inicial',
+    basico:     'explorador',
+    redactar:   'explorador',
+    sin_flujo:  'operativo',
+    investigar: 'operativo',
+    procesos:   'estrategico',
+    plataforma: 'estrategico',
+  };
+  const maturityKey = aiUsageAnswer ? (maturityMap[aiUsageAnswer] ?? 'inicial') : 'inicial';
+  const maturityLabelMap: Record<string, string> = {
+    inicial:     'Inicial',
+    explorador:  'Explorador',
+    operativo:   'Operativo',
+    estrategico: 'Estratégico',
+  };
+  const maturityLabel = maturityLabelMap[maturityKey];
+
+  // Map topService → top 3 opportunity areas
+  const serviceOpportunities: Record<string, import('@/data/benchmark').OpportunityId[]> = {
+    legaltech:           ['iusmachina', 'ia_aplicada', 'workflows'],
+    documentAutomation:  ['documentacion', 'workflows', 'ia_aplicada'],
+    aiWorkflows:         ['workflows', 'ia_aplicada', 'documentacion'],
+    training:            ['capacitacion', 'ia_aplicada', 'workflows'],
+    dashboard:           ['dashboard', 'workflows', 'documentacion'],
+    studyApp:            ['capacitacion', 'iusmachina', 'ia_aplicada'],
+    cybersecurity:       ['compliance', 'capacitacion', 'ia_aplicada'],
+    commercialPlatform:  ['dashboard', 'documentacion', 'ia_aplicada'],
+  };
+  const topOpportunities = serviceOpportunities[topService] ?? ['ia_aplicada', 'workflows', 'capacitacion'];
+
   const svc = SERVICE_MAP[topService];
   return {
     compatibility, level, levelKey, topService,
@@ -293,5 +332,6 @@ export function buildResult(answers: WizardAnswers): DiagnosticResult {
     serviceDescription: svc.description,
     serviceBenefit: svc.benefit,
     message, profile, weeklyHours, priority,
+    maturityKey, maturityLabel, topOpportunities,
   };
 }

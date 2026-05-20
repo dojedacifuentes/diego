@@ -4,7 +4,7 @@ import './globals.css';
 import { GridBackground } from '@/components/common/GridBackground';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-import { FloatingContact } from '@/components/common/FloatingContact';
+import { AICommandBar } from '@/components/common/AICommandBar';
 import { ClientProviders } from '@/components/common/ClientProviders';
 
 const spaceGrotesk = Space_Grotesk({
@@ -47,7 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Navbar />
             <main>{children}</main>
             <Footer />
-            <FloatingContact />
+            <AICommandBar />
           </div>
         </ClientProviders>
       </body>
