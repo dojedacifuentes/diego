@@ -84,8 +84,8 @@ export function PillarsSection() {
             {PILLARS.map(({ num, icon: Icon, title, desc, items, accent, border }, i) => (
               <motion.div
                 key={num}
-                initial={{ opacity: 0, x: 24 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
                 className={`group panel rounded-2xl p-6 card-surface-hover ${border}`}

@@ -92,7 +92,7 @@ export function ContactSection() {
       <div className="max-w-6xl mx-auto px-4 lg:px-8 space-y-12 relative">
 
         <SectionHeader
-          index="11"
+          index="05"
           eyebrow="Contacto"
           title={<>Diseñemos el sistema que tu <em className="serif-italic text-gradient-tech">proceso</em> necesita.</>}
           sub="El primer paso es una conversación, no una compra. Cuéntame qué quieres ordenar, automatizar o convertir en plataforma."
@@ -103,8 +103,8 @@ export function ContactSection() {
 
           {/* ── Left: what happens next ── */}
           <motion.div
-            initial={{ opacity: 0, x: -18 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.55 }}
             className="space-y-4 lg:sticky lg:top-28"
@@ -160,8 +160,8 @@ export function ContactSection() {
 
           {/* ── Right: form panel ── */}
           <motion.div
-            initial={{ opacity: 0, x: 18 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.55 }}
           >

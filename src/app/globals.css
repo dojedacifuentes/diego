@@ -444,6 +444,98 @@ html {
     animation: scan 5s linear infinite;
     pointer-events: none;
   }
+
+  /* ════════════════════════════════════════════════════════════
+     CYBER-TERMINAL LAYER — immersive, disciplined. Mono + cyan
+     signal + phosphor (lab/live). Glitch = chromatic RGB split.
+     ════════════════════════════════════════════════════════════ */
+
+  /* Constant faint scanlines — the "live console" texture.
+     Mounted once globally; low opacity so it reads CRT, not noise. */
+  .scanlines::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 2px,
+      oklch(0 0 0 / 0.18) 3px,
+      transparent 4px
+    );
+    opacity: 0.55;
+  }
+  /* Slow rolling sweep over the scanlines */
+  .scanlines::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 61;
+    pointer-events: none;
+    height: 160px;
+    background: linear-gradient(180deg, transparent, oklch(0.78 0.13 205 / 0.035), transparent);
+    animation: crt-roll 8s linear infinite;
+  }
+
+  /* Glitch text — duplicate via data-text, chromatic cyan/magenta
+     split. Resting state clean; :hover / .glitch-live triggers jitter. */
+  .glitch {
+    position: relative;
+    display: inline-block;
+  }
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .glitch::before { color: oklch(0.78 0.18 205); text-shadow: -1px 0 oklch(0.78 0.18 205); }
+  .glitch::after  { color: oklch(0.7 0.24 330);  text-shadow: 1px 0 oklch(0.7 0.24 330); }
+  .glitch:hover::before,
+  .glitch.glitch-live::before { opacity: 0.85; animation: glitch-a 1.7s steps(2, jump-none) infinite; }
+  .glitch:hover::after,
+  .glitch.glitch-live::after  { opacity: 0.85; animation: glitch-b 2.1s steps(2, jump-none) infinite; }
+
+  /* Blinking block caret for terminal lines */
+  .caret::after {
+    content: "";
+    display: inline-block;
+    width: 0.5em;
+    height: 1.05em;
+    margin-left: 0.12em;
+    transform: translateY(0.14em);
+    background: oklch(0.82 0.12 205);
+    animation: caret-blink 1.1s steps(1) infinite;
+  }
+
+  /* Terminal prompt prefix */
+  .prompt::before {
+    content: "$ ";
+    color: oklch(0.78 0.13 162);
+  }
+
+  /* Subtle constant flicker for "powered" elements */
+  .flicker { animation: flicker 5s infinite; }
+
+  /* Quick RGB nudge on hover for interactive text */
+  .glitch-hover { transition: text-shadow 0.12s ease; }
+  .glitch-hover:hover {
+    text-shadow: -1.5px 0 oklch(0.78 0.18 205 / 0.7), 1.5px 0 oklch(0.7 0.24 330 / 0.7);
+  }
+
+  /* Decode shimmer for mono labels */
+  .decode {
+    background-image: linear-gradient(90deg, oklch(0.78 0.13 205) 0%, oklch(0.94 0.008 240) 50%, oklch(0.78 0.13 205) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 3.5s linear infinite;
+  }
 }
 
 @keyframes float {

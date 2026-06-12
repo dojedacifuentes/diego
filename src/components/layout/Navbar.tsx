@@ -6,11 +6,11 @@ import { Menu, X, ArrowUpRight } from 'lucide-react';
 
 const navItems = [
   { href: '#perfil', label: 'Perfil', type: 'anchor' },
+  { href: '#trayectoria', label: 'Trayectoria', type: 'anchor' },
   { href: '#investigacion', label: 'Investigación', type: 'anchor' },
-  { href: '#docencia', label: 'Docencia', type: 'anchor' },
-  { href: '#lab', label: 'Diógenes Lab', type: 'anchor' },
-  { href: '#evaluacion', label: 'Diagnóstico IA', type: 'anchor' },
-  { href: '#servicios', label: 'Servicios', type: 'anchor' },
+  { href: '#lab', label: 'Lab', type: 'anchor' },
+  { href: '/diagnostico', label: 'Diagnóstico IA', type: 'route' },
+  { href: '/capacitacion', label: 'Talleres', type: 'route' },
   { href: '#contacto', label: 'Contacto', type: 'anchor' },
 ];
 

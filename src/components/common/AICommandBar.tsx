@@ -54,9 +54,9 @@ export function AICommandBar() {
   const actions = [
     {
       icon: Zap,
-      label: 'Evaluar compatibilidad IA',
+      label: 'AI Readiness Scanner',
       sublabel: 'Diagnóstico en 8 pasos',
-      onClick: () => navigate('evaluacion'),
+      onClick: () => router.push('/diagnostico'),
       color: 'text-cyan-400 hover:bg-cyan-500/10',
       dot: !result,
     },
@@ -64,7 +64,7 @@ export function AICommandBar() {
       icon: Calculator,
       label: 'Simular ahorro',
       sublabel: 'ROI y payback estimados',
-      onClick: () => navigate('simulador'),
+      onClick: () => router.push('/diagnostico#simulador'),
       color: 'text-indigo-400 hover:bg-indigo-500/10',
       dot: false,
     },

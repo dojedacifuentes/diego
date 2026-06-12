@@ -116,8 +116,6 @@ function MiniMock({ variant }: { variant: MockVariant }) {
 
 export function PortfolioSection() {
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>('Todos');
-  const scrollTo = (id: string) =>
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   const filtered =
     activeCategory === 'Todos'
@@ -153,7 +151,7 @@ export function PortfolioSection() {
           </motion.div>
 
           <SectionHeader
-            index="05"
+            index="04"
             eyebrow="Laboratorio"
             title="Proyectos construidos sobre problemas reales."
             sub="Cada prototipo es evidencia de capacidad técnica y criterio de diseño: interfaces, automatización, IA aplicada y despliegue real en producción."
@@ -268,35 +266,35 @@ export function PortfolioSection() {
         >
           <div className="flex items-center gap-2 mb-5">
             <DiogenesLamp className="w-4 h-4 lab-accent" />
-            <span className="eyebrow text-zinc-500">Experimentos en vivo · pruébalos en esta página</span>
+            <span className="eyebrow text-zinc-500">Experimentos en vivo · ábrelos en /diagnóstico</span>
           </div>
           <div className="grid sm:grid-cols-2 gap-3">
-            <button
-              onClick={() => scrollTo('evaluacion')}
+            <a
+              href="/diagnostico"
               className="group/exp flex items-center gap-4 rounded-xl border border-[var(--line-soft)] bg-white/[0.02] p-4 text-left card-surface-hover"
             >
               <div className="w-10 h-10 rounded-lg border border-[oklch(0.78_0.13_205/0.35)] bg-[oklch(0.78_0.13_205/0.08)] flex items-center justify-center shrink-0">
                 <ScanLine className="w-4.5 h-4.5 text-[oklch(0.82_0.12_205)]" />
               </div>
               <div className="flex-1">
-                <div className="text-[13.5px] font-bold text-white">AI Readiness Scanner</div>
+                <div className="text-[13.5px] font-bold text-white glitch-hover">AI Readiness Scanner</div>
                 <div className="text-[11.5px] text-zinc-500 mt-0.5">Diagnóstico de automatización en 8 preguntas</div>
               </div>
               <ArrowUpRight className="w-4 h-4 text-zinc-600 group-hover/exp:text-[oklch(0.82_0.12_205)] transition-colors" />
-            </button>
-            <button
-              onClick={() => scrollTo('simulador')}
+            </a>
+            <a
+              href="/diagnostico#simulador"
               className="group/exp flex items-center gap-4 rounded-xl border border-[var(--line-soft)] bg-white/[0.02] p-4 text-left card-surface-hover"
             >
-              <div className="w-10 h-10 rounded-lg border border-[oklch(0.62_0.19_285/0.4)] bg-[oklch(0.62_0.19_285/0.08)] flex items-center justify-center shrink-0">
-                <Calculator className="w-4.5 h-4.5 text-[oklch(0.72_0.16_285)]" />
+              <div className="w-10 h-10 rounded-lg border border-[oklch(0.78_0.13_205/0.35)] bg-[oklch(0.78_0.13_205/0.08)] flex items-center justify-center shrink-0">
+                <Calculator className="w-4.5 h-4.5 text-[oklch(0.82_0.12_205)]" />
               </div>
               <div className="flex-1">
-                <div className="text-[13.5px] font-bold text-white">Simulador ROI</div>
+                <div className="text-[13.5px] font-bold text-white glitch-hover">Simulador ROI</div>
                 <div className="text-[11.5px] text-zinc-500 mt-0.5">El costo oculto del trabajo manual, en números</div>
               </div>
-              <ArrowUpRight className="w-4 h-4 text-zinc-600 group-hover/exp:text-[oklch(0.72_0.16_285)] transition-colors" />
-            </button>
+              <ArrowUpRight className="w-4 h-4 text-zinc-600 group-hover/exp:text-[oklch(0.82_0.12_205)] transition-colors" />
+            </a>
           </div>
         </motion.div>
 

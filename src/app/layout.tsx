@@ -48,7 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="es"
       className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${fraunces.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-[oklch(0.115_0.022_255)] text-zinc-200 overflow-x-hidden">
+      <body className="scanlines min-h-full bg-[oklch(0.1_0.02_255)] text-zinc-200 overflow-x-hidden">
         <GridBackground />
         <ClientProviders>
           <div className="relative z-10">
