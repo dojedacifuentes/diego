@@ -2,16 +2,29 @@
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Zap } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 
 const navItems = [
-  { href: '/', label: 'Inicio', type: 'route' },
-  { href: '#evaluacion', label: 'Evaluación IA', type: 'anchor' },
-  { href: '#soluciones', label: 'Soluciones', type: 'anchor' },
-  { href: '#portafolio', label: 'Proyectos', type: 'anchor' },
-  { href: '/capacitacion', label: 'Capacitación', type: 'route' },
+  { href: '#perfil', label: 'Perfil', type: 'anchor' },
+  { href: '#investigacion', label: 'Investigación', type: 'anchor' },
+  { href: '#docencia', label: 'Docencia', type: 'anchor' },
+  { href: '#lab', label: 'Diógenes Lab', type: 'anchor' },
+  { href: '#evaluacion', label: 'Diagnóstico IA', type: 'anchor' },
+  { href: '#servicios', label: 'Servicios', type: 'anchor' },
   { href: '#contacto', label: 'Contacto', type: 'anchor' },
 ];
+
+/* DO/ — digital signature monogram */
+function LogoMark() {
+  return (
+    <div className="relative h-9 px-2.5 rounded-[9px] border border-[oklch(0.78_0.13_205/0.4)] bg-gradient-to-br from-[oklch(0.78_0.13_205/0.14)] to-[oklch(0.62_0.19_285/0.1)] flex items-center justify-center">
+      <span className="mono text-[13px] font-bold tracking-tight text-[oklch(0.86_0.1_205)] leading-none">
+        DO<span className="text-[oklch(0.62_0.19_285)]">/</span>
+      </span>
+      <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-[oklch(0.74_0.14_165)] border border-[oklch(0.115_0.022_255)]" />
+    </div>
+  );
+}
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -36,24 +49,21 @@ export function Navbar() {
     if (type === 'route') {
       router.push(href);
     } else {
-      // Anchor link
       const id = href.replace('#', '');
       if (pathname === '/') {
-        // On home page: smooth scroll
         document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
-        // On other pages: navigate to home with hash
         router.push('/' + href);
       }
     }
   };
 
-  const handleEvalCTA = () => {
+  const handleCTA = () => {
     setMenuOpen(false);
     if (pathname === '/') {
-      document.getElementById('evaluacion')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } else {
-      router.push('/#evaluacion');
+      router.push('/#contacto');
     }
   };
 
@@ -62,39 +72,40 @@ export function Navbar() {
       <header
         className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'backdrop-blur-xl bg-[oklch(0.07_0.015_250/0.94)] border-b border-white/[0.07]'
-            : 'bg-transparent'
+            ? 'glass-panel border-x-0 border-t-0 border-b border-[var(--line-soft)]'
+            : 'bg-transparent border-b border-transparent'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 h-14 flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 h-16 flex items-center justify-between gap-4">
 
-          {/* Logo */}
+          {/* Identity */}
           <button
             onClick={() => handleNav('/', 'route')}
-            className="flex items-center gap-2.5 shrink-0 group"
+            className="flex items-center gap-3 shrink-0 group"
           >
-            <div className="w-7 h-7 rounded-lg bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center group-hover:bg-cyan-500/30 transition-colors">
-              <Zap className="w-3.5 h-3.5 text-cyan-400" />
-            </div>
-            <div>
-              <span className="text-sm font-bold text-white tracking-tight">Ojeda &amp; Andrade</span>
-              <span className="text-sm font-bold text-cyan-400 tracking-tight"> Labs</span>
+            <LogoMark />
+            <div className="text-left leading-none">
+              <div className="text-[15px] font-bold tracking-tight text-white">
+                Diego Ojeda
+              </div>
+              <div className="text-[9px] mono uppercase tracking-[0.2em] text-zinc-500 mt-1">
+                Derecho · IA · Filosofía
+              </div>
             </div>
           </button>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-0.5">
+          <nav className="hidden lg:flex items-center gap-0.5 px-1.5 py-1.5 rounded-xl border border-[var(--line-soft)] bg-[oklch(0.13_0.022_255/0.5)] backdrop-blur-md">
             {navItems.map(({ href, label, type }) => {
-              const isActive =
-                type === 'route' && pathname === href;
+              const isActive = type === 'route' && pathname === href;
               return (
                 <button
                   key={href}
                   onClick={() => handleNav(href, type)}
-                  className={`px-3 py-1.5 text-[13px] rounded-lg transition-all ${
+                  className={`px-3 py-1.5 text-[12.5px] rounded-lg transition-all ${
                     isActive
-                      ? 'text-cyan-400 bg-cyan-500/8'
-                      : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]'
+                      ? 'text-[oklch(0.84_0.11_205)] bg-[oklch(0.78_0.13_205/0.1)]'
+                      : 'text-zinc-400 hover:text-zinc-100 hover:bg-white/[0.05]'
                   }`}
                 >
                   {label}
@@ -105,18 +116,16 @@ export function Navbar() {
 
           {/* CTA */}
           <div className="flex items-center gap-2">
-            <motion.button
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={handleEvalCTA}
-              className="hidden md:flex items-center gap-1.5 px-4 py-1.5 rounded-lg border border-cyan-500/35 bg-cyan-500/10 text-cyan-300 text-xs font-bold hover:bg-cyan-500/18 transition-all"
+            <button
+              onClick={handleCTA}
+              className="hidden md:inline-flex btn-primary px-4! py-2! text-[13px]!"
             >
-              <Zap className="w-3.5 h-3.5" />
-              Evaluar mi compatibilidad IA
-            </motion.button>
+              Trabajemos juntos
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </button>
             <button
               onClick={() => setMenuOpen(v => !v)}
-              className="lg:hidden w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-zinc-200 rounded-lg hover:bg-white/[0.06] transition-colors"
+              className="lg:hidden w-9 h-9 flex items-center justify-center text-zinc-400 hover:text-zinc-200 rounded-lg border border-[var(--line-soft)] bg-white/[0.02] transition-colors"
               aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
             >
               {menuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -134,40 +143,38 @@ export function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-40 bg-black/40 lg:hidden"
+              className="fixed inset-0 z-40 bg-black/55 backdrop-blur-sm lg:hidden"
               onClick={() => setMenuOpen(false)}
             />
             <motion.div
-              initial={{ opacity: 0, y: -6 }}
+              initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.18 }}
-              className="fixed inset-x-0 top-14 z-50 lg:hidden border-b border-white/[0.07] bg-[oklch(0.07_0.015_250/0.98)] backdrop-blur-xl"
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-x-0 top-16 z-50 lg:hidden glass-panel border-x-0 border-t-0 border-b border-[var(--line-mid)]"
             >
-              <div className="max-w-7xl mx-auto px-4 py-3 space-y-0.5">
+              <div className="max-w-7xl mx-auto px-4 py-4 space-y-1">
                 {navItems.map(({ href, label, type }) => {
                   const isActive = type === 'route' && pathname === href;
                   return (
                     <button
                       key={href}
                       onClick={() => handleNav(href, type)}
-                      className={`w-full text-left px-3 py-2.5 text-sm rounded-lg transition-all ${
+                      className={`w-full text-left px-4 py-3 text-sm rounded-lg transition-all flex items-center justify-between ${
                         isActive
-                          ? 'text-cyan-400 bg-cyan-500/8'
-                          : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]'
+                          ? 'text-[oklch(0.84_0.11_205)] bg-[oklch(0.78_0.13_205/0.1)]'
+                          : 'text-zinc-300 hover:text-white hover:bg-white/[0.04]'
                       }`}
                     >
                       {label}
+                      <span className="text-[10px] mono text-zinc-600">{href.replace('#', '/')}</span>
                     </button>
                   );
                 })}
-                <div className="pt-2 pb-1">
-                  <button
-                    onClick={handleEvalCTA}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-cyan-500/35 bg-cyan-500/10 text-cyan-300 text-sm font-bold hover:bg-cyan-500/18 transition-all"
-                  >
-                    <Zap className="w-4 h-4" />
-                    Evaluar mi compatibilidad IA
+                <div className="pt-3 pb-1">
+                  <button onClick={handleCTA} className="btn-primary w-full">
+                    Trabajemos juntos
+                    <ArrowUpRight className="w-4 h-4" />
                   </button>
                 </div>
               </div>

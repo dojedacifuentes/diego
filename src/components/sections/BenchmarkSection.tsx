@@ -9,6 +9,7 @@ import {
   LEY_21719,
   MATURITY_LEVELS,
 } from '@/data/benchmark';
+import { SectionHeader } from '@/components/common/SectionHeader';
 
 function scrollTo(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -66,23 +67,13 @@ export function BenchmarkSection() {
       <div className="max-w-7xl mx-auto px-4 lg:px-8 space-y-14">
 
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center max-w-2xl mx-auto space-y-3"
-        >
-          <div className="text-[11px] text-zinc-600 uppercase tracking-widest mono font-medium">
-            Benchmarking · LegalTech Chile 2026
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight">
-            El mercado que ya no espera
-          </h2>
-          <p className="text-sm text-zinc-500 leading-relaxed">
-            Datos del ecosistema LegalTech global y chileno para 2026. Entiende dónde está el sector y dónde está tu práctica.
-          </p>
-        </motion.div>
+        <SectionHeader
+          index="10"
+          eyebrow="Contexto · Intelligence Report 2026"
+          title="El mercado legal ya se está automatizando."
+          sub="Datos del ecosistema LegalTech global y chileno. Entiende dónde está el sector — y dónde está tu práctica."
+          align="center"
+        />
 
         {/* Top 4 stats */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -370,14 +361,11 @@ export function BenchmarkSection() {
           className="text-center space-y-3"
         >
           <p className="text-sm text-zinc-500">
-            ¿En qué nivel de madurez está tu práctica jurídica?
+            ¿En qué nivel de madurez está tu práctica?
           </p>
-          <button
-            onClick={() => scrollTo('evaluacion')}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm bg-cyan-500/15 border border-cyan-500/35 text-cyan-300 hover:bg-cyan-500/22 transition-all"
-          >
+          <button onClick={() => scrollTo('evaluacion')} className="btn-ghost-cyan">
             <Zap className="w-4 h-4" />
-            Evaluar mi compatibilidad IA
+            Ejecutar el AI Readiness Scanner
             <ChevronRight className="w-4 h-4" />
           </button>
         </motion.div>

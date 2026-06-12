@@ -1,26 +1,118 @@
 'use client';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Code2, ArrowRight, Star } from 'lucide-react';
+import { ExternalLink, Code2, Star, ScanLine, Calculator, ArrowUpRight } from 'lucide-react';
 import { projects, CATEGORIES, type ProjectCategory } from '@/data/projects';
+import { SectionHeader } from '@/components/common/SectionHeader';
+import { DiogenesLamp } from '@/components/common/DiogenesLamp';
 
 const statusColors: Record<string, string> = {
-  'Demo funcional': 'text-emerald-400 border-emerald-500/25 bg-emerald-500/8',
-  'Prototipo': 'text-amber-400 border-amber-500/25 bg-amber-500/8',
-  'Plataforma activa': 'text-cyan-400 border-cyan-500/25 bg-cyan-500/8',
-  'En desarrollo': 'text-indigo-400 border-indigo-500/25 bg-indigo-500/8',
-  'Repositorio': 'text-zinc-400 border-zinc-500/25 bg-zinc-500/8',
+  'Demo funcional': 'text-[oklch(0.78_0.13_162)] border-[oklch(0.74_0.14_165/0.3)] bg-[oklch(0.74_0.14_165/0.07)]',
+  'Prototipo': 'text-[oklch(0.8_0.13_75)] border-[oklch(0.78_0.14_75/0.3)] bg-[oklch(0.78_0.14_75/0.07)]',
+  'Plataforma activa': 'text-[oklch(0.82_0.12_205)] border-[oklch(0.78_0.13_205/0.3)] bg-[oklch(0.78_0.13_205/0.07)]',
+  'En desarrollo': 'text-[oklch(0.72_0.16_285)] border-[oklch(0.62_0.19_285/0.35)] bg-[oklch(0.62_0.19_285/0.08)]',
+  'Repositorio': 'text-zinc-400 border-[var(--line-mid)] bg-white/[0.02]',
 };
 
-const categoryColors: Record<string, string> = {
-  'Legaltech': 'text-cyan-400',
-  'Estudio del Derecho': 'text-indigo-400',
-  'Talleres': 'text-violet-400',
-  'Apps personalizadas': 'text-amber-400',
-  'Pymes': 'text-emerald-400',
-  'RPG jurídico': 'text-rose-400',
-  'IA y prompting': 'text-blue-400',
+type MockVariant = 'dashboard' | 'cards' | 'doc' | 'game';
+
+const VARIANT_BY_CATEGORY: Partial<Record<ProjectCategory, MockVariant>> = {
+  'Legaltech': 'dashboard',
+  'Talleres y IA': 'doc',
+  'Pymes': 'cards',
+  'Apps personalizadas': 'cards',
+  'RPG jurídico': 'game',
+  'Administrativo y Público': 'doc',
+  'Herramientas de estudio': 'cards',
+  'Examen de Grado': 'game',
+  'Derecho Civil': 'doc',
+  'IA y prompting': 'dashboard',
 };
+
+/* CSS-generated mini mockup — every project shows as a product */
+function MiniMock({ variant }: { variant: MockVariant }) {
+  return (
+    <div className="relative rounded-lg border border-[var(--line-mid)] bg-[oklch(0.1_0.02_255)] overflow-hidden h-[120px] group-hover:border-[oklch(0.78_0.13_205/0.35)] transition-colors">
+      {/* chrome */}
+      <div className="flex items-center gap-1 px-2.5 py-1.5 border-b border-[var(--line-soft)] bg-[oklch(0.13_0.022_255)]">
+        <span className="w-1.5 h-1.5 rounded-full bg-zinc-700" />
+        <span className="w-1.5 h-1.5 rounded-full bg-zinc-700" />
+        <span className="w-1.5 h-1.5 rounded-full bg-zinc-700" />
+        <div className="ml-2 h-1.5 w-16 rounded-full bg-white/[0.05]" />
+      </div>
+
+      {variant === 'dashboard' && (
+        <div className="flex h-full">
+          <div className="w-10 border-r border-[var(--line-soft)] p-1.5 space-y-1.5">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className={`h-1.5 rounded-full ${i === 0 ? 'bg-[oklch(0.78_0.13_205/0.5)]' : 'bg-white/[0.07]'}`} />
+            ))}
+          </div>
+          <div className="flex-1 p-2 space-y-1.5">
+            <div className="grid grid-cols-3 gap-1.5">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="h-6 rounded bg-white/[0.05] border border-[var(--line-soft)]" />
+              ))}
+            </div>
+            <div className="h-10 rounded bg-white/[0.04] border border-[var(--line-soft)] flex items-end gap-1 p-1.5">
+              {[40, 65, 50, 80, 60, 90].map((h, i) => (
+                <div key={i} className="flex-1 rounded-sm bg-[oklch(0.78_0.13_205/0.4)]" style={{ height: `${h}%` }} />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {variant === 'cards' && (
+        <div className="p-2 space-y-1.5">
+          <div className="h-2 w-20 rounded-full bg-[oklch(0.78_0.13_205/0.45)]" />
+          <div className="grid grid-cols-2 gap-1.5">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="h-8 rounded bg-white/[0.05] border border-[var(--line-soft)] p-1.5">
+                <div className="h-1.5 w-8 rounded-full bg-white/[0.1]" />
+                <div className="h-1.5 w-5 rounded-full bg-white/[0.06] mt-1" />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {variant === 'doc' && (
+        <div className="p-2.5 space-y-1.5">
+          <div className="h-2 w-24 rounded-full bg-[oklch(0.62_0.19_285/0.55)]" />
+          {[90, 100, 75, 95, 60].map((w, i) => (
+            <div key={i} className="h-1.5 rounded-full bg-white/[0.07]" style={{ width: `${w}%` }} />
+          ))}
+          <div className="flex gap-1.5 pt-1">
+            <div className="h-3.5 w-12 rounded bg-[oklch(0.78_0.13_205/0.25)] border border-[oklch(0.78_0.13_205/0.3)]" />
+            <div className="h-3.5 w-12 rounded bg-white/[0.05] border border-[var(--line-soft)]" />
+          </div>
+        </div>
+      )}
+
+      {variant === 'game' && (
+        <div className="p-2.5 space-y-1.5">
+          <div className="flex justify-between items-center">
+            <div className="h-2 w-14 rounded-full bg-[oklch(0.74_0.14_165/0.55)]" />
+            <div className="flex gap-1">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="w-2 h-2 rounded-sm bg-[oklch(0.78_0.14_75/0.5)]" />
+              ))}
+            </div>
+          </div>
+          <div className="h-8 rounded bg-white/[0.04] border border-[var(--line-soft)] p-1.5">
+            <div className="h-1.5 w-3/4 rounded-full bg-white/[0.09]" />
+            <div className="h-1.5 w-1/2 rounded-full bg-white/[0.06] mt-1" />
+          </div>
+          <div className="grid grid-cols-2 gap-1.5">
+            <div className="h-4 rounded bg-[oklch(0.78_0.13_205/0.2)] border border-[oklch(0.78_0.13_205/0.3)]" />
+            <div className="h-4 rounded bg-white/[0.05] border border-[var(--line-soft)]" />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function PortfolioSection() {
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>('Todos');
@@ -30,193 +122,180 @@ export function PortfolioSection() {
   const filtered =
     activeCategory === 'Todos'
       ? projects
-      : projects.filter((p) => p.category === activeCategory);
-
-  const featured = projects.filter((p) => p.featured);
+      : projects.filter(p => p.category === activeCategory);
 
   return (
-    <section id="portafolio" className="py-20 lg:py-28">
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 space-y-14">
+    <section id="lab" className="py-24 lg:py-32 relative">
+      {/* Lab ambient — phosphor tint */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(ellipse 65% 45% at 80% 12%, oklch(0.74 0.14 165 / 0.05) 0%, transparent 60%)',
+        }}
+        aria-hidden
+      />
 
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center max-w-3xl mx-auto space-y-3"
-        >
-          <div className="text-[11px] text-zinc-600 uppercase tracking-widest mono font-medium">
-            Portafolio aplicado
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight">
-            Proyectos reales y prototipos funcionales
-          </h2>
-          <p className="text-sm text-zinc-500 leading-relaxed">
-            Cada proyecto funciona como una demostración de capacidades: diseño de interfaces,
-            organización de información, automatización documental, IA aplicada, educación jurídica,
-            simuladores, dashboards y despliegue rápido en GitHub y Vercel.
-          </p>
-        </motion.div>
+      <div className="max-w-7xl mx-auto px-4 lg:px-8 space-y-10 relative">
 
-        {/* Featured */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2">
-            <Star className="w-4 h-4 text-amber-400" />
-            <h3 className="text-sm font-semibold text-white">Proyectos destacados</h3>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {featured.map((p, i) => (
-              <motion.div
-                key={p.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08, duration: 0.45 }}
-                className="rounded-2xl border border-amber-500/15 bg-amber-500/4 p-4 space-y-3 card-surface-hover"
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <span className={`text-xs font-medium ${categoryColors[p.category] ?? 'text-zinc-400'}`}>
-                    {p.category}
-                  </span>
-                  <span className={`text-[10px] mono px-2 py-0.5 rounded-md border ${statusColors[p.status] ?? ''}`}>
-                    {p.status}
-                  </span>
-                </div>
-                <div>
-                  <div className="text-sm font-semibold text-white">{p.title}</div>
-                  <p className="text-xs text-zinc-500 mt-1 leading-relaxed line-clamp-2">{p.description}</p>
-                </div>
-                <p className="text-[11px] text-zinc-600 italic leading-relaxed">{p.caseNote}</p>
-              </motion.div>
-            ))}
-          </div>
+        {/* Lab seal + header */}
+        <div className="space-y-6">
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2.5 rounded-full border lab-chip pl-3 pr-4 py-1.5"
+          >
+            <DiogenesLamp className="w-4 h-4" />
+            <span className="text-[11px] mono uppercase tracking-[0.16em]">
+              Diógenes Lab · software, aprendizaje jurídico y crítica algorítmica
+            </span>
+          </motion.div>
+
+          <SectionHeader
+            index="05"
+            eyebrow="Laboratorio"
+            title="Proyectos construidos sobre problemas reales."
+            sub="Cada prototipo es evidencia de capacidad técnica y criterio de diseño: interfaces, automatización, IA aplicada y despliegue real en producción."
+          />
         </div>
 
-        {/* Filter */}
-        <div className="space-y-6">
-          <div className="flex items-center justify-between gap-4">
-            <h3 className="text-sm font-semibold text-white">Explorar todos los proyectos</h3>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  activeCategory === cat
-                    ? 'bg-cyan-500/15 border border-cyan-500/40 text-cyan-300'
-                    : 'border border-white/[0.07] bg-white/[0.02] text-zinc-500 hover:text-zinc-300 hover:border-white/[0.12]'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+        {/* Filters */}
+        <div className="flex flex-wrap gap-2">
+          {CATEGORIES.map(cat => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all border ${
+                activeCategory === cat
+                  ? 'border-[oklch(0.78_0.13_205/0.5)] bg-[oklch(0.78_0.13_205/0.12)] text-[oklch(0.86_0.09_205)]'
+                  : 'border-[var(--line-soft)] bg-white/[0.02] text-zinc-500 hover:text-zinc-200 hover:border-[var(--line-strong)]'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
 
-          {/* Cards */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <AnimatePresence mode="popLayout">
-              {filtered.map((p) => (
-                <motion.div
-                  key={p.title}
-                  layout
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.97 }}
-                  transition={{ duration: 0.3 }}
-                  className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5 space-y-4 card-surface-hover"
-                >
-                  {/* Header row */}
-                  <div className="flex items-start justify-between gap-2">
-                    <span className={`text-xs font-medium ${categoryColors[p.category] ?? 'text-zinc-400'}`}>
-                      {p.category}
-                    </span>
+        {/* Project cards */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <AnimatePresence mode="popLayout">
+            {filtered.map(p => (
+              <motion.div
+                key={p.title}
+                layout
+                initial={{ opacity: 0, scale: 0.97 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.97 }}
+                transition={{ duration: 0.3 }}
+                className="group panel rounded-2xl p-4 space-y-4 card-surface-hover hover-lift flex flex-col"
+              >
+                <MiniMock variant={VARIANT_BY_CATEGORY[p.category] ?? 'dashboard'} />
+
+                {/* Meta row */}
+                <div className="flex items-start justify-between gap-2">
+                  <span className="text-[11px] mono text-[oklch(0.78_0.1_205)]">{p.category}</span>
+                  <div className="flex items-center gap-1.5">
+                    {p.featured && <Star className="w-3 h-3 text-[oklch(0.82_0.11_85)] fill-[oklch(0.82_0.11_85)]" />}
                     <span className={`text-[10px] mono px-2 py-0.5 rounded-md border ${statusColors[p.status] ?? ''}`}>
                       {p.status}
                     </span>
                   </div>
+                </div>
 
-                  {/* Title + desc */}
-                  <div>
-                    <div className="text-sm font-semibold text-white">{p.title}</div>
-                    <p className="text-xs text-zinc-500 mt-1.5 leading-relaxed">{p.description}</p>
-                  </div>
+                {/* Title + desc */}
+                <div className="flex-1">
+                  <h3 className="text-[15px] font-bold text-white tracking-tight">{p.title}</h3>
+                  <p className="text-xs text-zinc-500 mt-1.5 leading-relaxed">{p.description}</p>
+                </div>
 
-                  {/* Problem */}
-                  <div className="rounded-lg bg-white/[0.02] border border-white/[0.05] p-2.5">
-                    <div className="text-[10px] text-zinc-700 uppercase tracking-widest mono mb-1">Problema</div>
-                    <p className="text-[11px] text-zinc-500 leading-relaxed">{p.problem}</p>
-                  </div>
+                {/* Problem solved */}
+                <div className="rounded-lg bg-[oklch(0.12_0.022_255/0.6)] border border-[var(--line-soft)] p-2.5">
+                  <div className="text-[9px] text-zinc-600 uppercase tracking-[0.15em] mono mb-1">Problema resuelto</div>
+                  <p className="text-[11px] text-zinc-500 leading-relaxed">{p.problem}</p>
+                </div>
 
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-1.5">
-                    {p.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="px-2 py-0.5 rounded-md border border-white/[0.06] bg-white/[0.02] text-[10px] text-zinc-600 mono"
+                {/* Stack tags */}
+                <div className="flex flex-wrap gap-1.5">
+                  {p.tags.slice(0, 4).map(t => (
+                    <span key={t} className="px-2 py-0.5 rounded-md border border-[var(--line-soft)] bg-white/[0.02] text-[10px] text-zinc-500 mono">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Result */}
+                <p className="text-[11px] text-zinc-600 leading-relaxed border-t border-[var(--line-soft)] pt-3">
+                  <span className="mono text-[oklch(0.74_0.14_165)]">RESULTADO →</span> {p.caseNote}
+                </p>
+
+                {/* Links */}
+                {(p.demoUrl || p.repoUrl) && (
+                  <div className="flex gap-2">
+                    {p.demoUrl && (
+                      <a
+                        href={p.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold border border-[oklch(0.78_0.13_205/0.35)] bg-[oklch(0.78_0.13_205/0.08)] text-[oklch(0.84_0.11_205)] hover:bg-[oklch(0.78_0.13_205/0.15)] transition-all"
                       >
-                        {t}
-                      </span>
-                    ))}
+                        <ExternalLink className="w-3 h-3" /> Ver demo
+                      </a>
+                    )}
+                    {p.repoUrl && (
+                      <a
+                        href={p.repoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium border border-[var(--line-mid)] bg-white/[0.02] text-zinc-400 hover:text-zinc-200 transition-all"
+                      >
+                        <Code2 className="w-3 h-3" /> Ver caso
+                      </a>
+                    )}
                   </div>
-
-                  {/* Case note */}
-                  <p className="text-[11px] text-zinc-600 italic leading-relaxed">{p.caseNote}</p>
-
-                  {/* Links */}
-                  {(p.demoUrl || p.repoUrl) && (
-                    <div className="flex gap-3 pt-1">
-                      {p.demoUrl && (
-                        <a
-                          href={p.demoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1.5 text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
-                        >
-                          <ExternalLink className="w-3 h-3" /> Ver demo
-                        </a>
-                      )}
-                      {p.repoUrl && (
-                        <a
-                          href={p.repoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-zinc-300 transition-colors"
-                        >
-                          <Code2 className="w-3 h-3" /> Ver repositorio
-                        </a>
-                      )}
-                    </div>
-                  )}
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
+                )}
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
 
-        {/* CTA */}
+        {/* Live experiments bridge */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-8 text-center space-y-4"
+          className="panel-deep rounded-2xl p-6 sm:p-7"
         >
-          <h3 className="text-lg font-bold text-white">
-            ¿Quieres una plataforma similar para tu estudio, curso, consulta profesional o negocio?
-          </h3>
-          <div className="flex flex-wrap gap-3 justify-center">
+          <div className="flex items-center gap-2 mb-5">
+            <DiogenesLamp className="w-4 h-4 lab-accent" />
+            <span className="eyebrow text-zinc-500">Experimentos en vivo · pruébalos en esta página</span>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-3">
             <button
-              onClick={() => scrollTo('contacto')}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm text-black bg-cyan-400 hover:bg-cyan-300 transition-colors glow-cyan"
+              onClick={() => scrollTo('evaluacion')}
+              className="group/exp flex items-center gap-4 rounded-xl border border-[var(--line-soft)] bg-white/[0.02] p-4 text-left card-surface-hover"
             >
-              Solicitar diagnóstico
+              <div className="w-10 h-10 rounded-lg border border-[oklch(0.78_0.13_205/0.35)] bg-[oklch(0.78_0.13_205/0.08)] flex items-center justify-center shrink-0">
+                <ScanLine className="w-4.5 h-4.5 text-[oklch(0.82_0.12_205)]" />
+              </div>
+              <div className="flex-1">
+                <div className="text-[13.5px] font-bold text-white">AI Readiness Scanner</div>
+                <div className="text-[11.5px] text-zinc-500 mt-0.5">Diagnóstico de automatización en 8 preguntas</div>
+              </div>
+              <ArrowUpRight className="w-4 h-4 text-zinc-600 group-hover/exp:text-[oklch(0.82_0.12_205)] transition-colors" />
             </button>
             <button
-              onClick={() => scrollTo('iusmachina')}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/10 transition-all"
+              onClick={() => scrollTo('simulador')}
+              className="group/exp flex items-center gap-4 rounded-xl border border-[var(--line-soft)] bg-white/[0.02] p-4 text-left card-surface-hover"
             >
-              Ver IusMachina <ArrowRight className="w-4 h-4" />
+              <div className="w-10 h-10 rounded-lg border border-[oklch(0.62_0.19_285/0.4)] bg-[oklch(0.62_0.19_285/0.08)] flex items-center justify-center shrink-0">
+                <Calculator className="w-4.5 h-4.5 text-[oklch(0.72_0.16_285)]" />
+              </div>
+              <div className="flex-1">
+                <div className="text-[13.5px] font-bold text-white">Simulador ROI</div>
+                <div className="text-[11.5px] text-zinc-500 mt-0.5">El costo oculto del trabajo manual, en números</div>
+              </div>
+              <ArrowUpRight className="w-4 h-4 text-zinc-600 group-hover/exp:text-[oklch(0.72_0.16_285)] transition-colors" />
             </button>
           </div>
         </motion.div>

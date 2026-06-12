@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
+import { Space_Grotesk, JetBrains_Mono, Fraunces } from 'next/font/google';
 import './globals.css';
 import { GridBackground } from '@/components/common/GridBackground';
 import { Navbar } from '@/components/layout/Navbar';
@@ -19,18 +19,26 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 });
 
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-fraunces',
+  display: 'swap',
+  style: ['normal', 'italic'],
+});
+
 export const metadata: Metadata = {
-  title: 'Ojeda & Andrade Labs | Apps inteligentes, automatización documental y ciberseguridad aplicada',
+  title: 'Diego Ojeda | Derecho, Inteligencia Artificial y Filosofía Jurídica Aplicada',
   description:
-    'Laboratorio de soluciones digitales para abogados, profesionales, pymes e instituciones. Desarrollamos apps personalizadas, automatización documental, plataformas jurídicas, talleres de IA y ciberseguridad aplicada.',
+    'Plataforma personal de Diego Ojeda: investigación en transparencia algorítmica, docencia en filosofía del derecho, dirección operativa del programa DIAT y desarrollo de herramientas digitales para el aprendizaje y ejercicio del derecho. Diógenes Lab: software, aprendizaje jurídico y crítica algorítmica.',
   keywords:
-    'IA jurídica, legaltech, automatización documental, apps para abogados, ciberseguridad, talleres de IA, Vercel, GitHub, Claude, tecnología jurídica, Ojeda Andrade Labs, IusMachina',
+    'Diego Ojeda, transparencia algorítmica, filosofía del derecho, IA jurídica, legaltech, DIAT, PUCV, prompting jurídico, Claude, Diógenes Lab, derecho e inteligencia artificial, EdTech jurídica',
   openGraph: {
-    title: 'Ojeda & Andrade Labs',
+    title: 'Diego Ojeda — Derecho, IA y Filosofía Jurídica Aplicada',
     description:
-      'Apps inteligentes, automatización documental y ciberseguridad aplicada para abogados, profesionales, pymes e instituciones.',
+      'Investigo, enseño y diseño herramientas para comprender el derecho en la era algorítmica. Investigación, docencia, DIAT y Diógenes Lab.',
     type: 'website',
     locale: 'es_CL',
+    url: 'https://diegoojeda.cl',
   },
 };
 
@@ -38,9 +46,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="es"
-      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${fraunces.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-[oklch(0.07_0.015_250)] text-zinc-200 overflow-x-hidden">
+      <body className="min-h-full bg-[oklch(0.115_0.022_255)] text-zinc-200 overflow-x-hidden">
         <GridBackground />
         <ClientProviders>
           <div className="relative z-10">

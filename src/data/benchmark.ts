@@ -236,7 +236,7 @@ export const OPPORTUNITY_AREAS: Record<OpportunityId, OpportunityArea> = {
   },
   iusmachina: {
     id: 'iusmachina',
-    label: 'IusMachina',
+    label: 'Plataforma LegalTech',
     description: 'Plataforma LegalTech personalizada para tu práctica jurídica',
     accentColor: '#f87171',
     borderClass: 'border-rose-500/30',

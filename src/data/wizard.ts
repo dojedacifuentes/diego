@@ -12,7 +12,7 @@ export type Scores = Record<ServiceKey, number>;
 
 export const SERVICE_MAP: Record<ServiceKey, { label: string; description: string; benefit: string }> = {
   legaltech: {
-    label: 'IusMachina / Plataforma LegalTech',
+    label: 'Plataforma LegalTech a medida',
     description: 'Diseño de herramientas jurídicas, asistentes de estudio, automatización documental, paneles de gestión, análisis normativo y flujos de IA para el trabajo legal.',
     benefit: 'Centralizar información jurídica, reducir tareas manuales y mejorar trazabilidad de causas, documentos y clientes.',
   },
@@ -229,6 +229,10 @@ export interface DiagnosticResult {
   maturityLabel: string;
   // Top opportunity areas (3 most relevant based on top service)
   topOpportunities: import('@/data/benchmark').OpportunityId[];
+  // Normalized score per axis (0–100) for the readiness radar
+  radar: { label: string; value: number }[];
+  // Operational risk derived from maturity
+  riskLabel: string;
 }
 
 export function buildResult(answers: WizardAnswers): DiagnosticResult {
@@ -325,6 +329,29 @@ export function buildResult(answers: WizardAnswers): DiagnosticResult {
   };
   const topOpportunities = serviceOpportunities[topService] ?? ['ia_aplicada', 'workflows', 'capacitacion'];
 
+  // Readiness radar: six fixed axes, normalized against the strongest signal
+  const radarAxes: { key: ServiceKey; label: string }[] = [
+    { key: 'documentAutomation', label: 'Automatización' },
+    { key: 'aiWorkflows', label: 'Flujos IA' },
+    { key: 'dashboard', label: 'Plataformas' },
+    { key: 'legaltech', label: 'LegalTech' },
+    { key: 'training', label: 'Capacitación' },
+    { key: 'cybersecurity', label: 'Seguridad' },
+  ];
+  const maxAxis = Math.max(1, ...radarAxes.map(a => scores[a.key]));
+  const radar = radarAxes.map(a => ({
+    label: a.label,
+    value: Math.max(12, Math.round((scores[a.key] / maxAxis) * 100)),
+  }));
+
+  const riskMap: Record<string, string> = {
+    inicial: 'Alto — proceso sin trazabilidad ni protocolo de IA',
+    explorador: 'Medio-alto — uso de IA sin flujo definido',
+    operativo: 'Medio — flujos definidos, control parcial',
+    estrategico: 'Controlado — proceso con criterios establecidos',
+  };
+  const riskLabel = riskMap[maturityKey];
+
   const svc = SERVICE_MAP[topService];
   return {
     compatibility, level, levelKey, topService,
@@ -333,5 +360,6 @@ export function buildResult(answers: WizardAnswers): DiagnosticResult {
     serviceBenefit: svc.benefit,
     message, profile, weeklyHours, priority,
     maturityKey, maturityLabel, topOpportunities,
+    radar, riskLabel,
   };
 }
