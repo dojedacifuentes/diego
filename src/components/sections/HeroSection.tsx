@@ -92,8 +92,8 @@ export function HeroSection() {
             transition={{ delay: 0.9, duration: 0.6 }}
             className="text-[15px] sm:text-base text-zinc-400 leading-relaxed max-w-xl"
           >
-            Investigo, enseño y construyo herramientas para pensar el derecho
-            en la era algorítmica.
+            Investigo, enseño y construyo herramientas para entender —y rediseñar—
+            cómo se estudia, se practica y se decide el derecho con inteligencia artificial.
           </motion.p>
 
           {/* CTAs */}

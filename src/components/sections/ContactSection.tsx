@@ -1,12 +1,20 @@
 'use client';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, MessageCircle, X, Mail, ScanLine, ArrowUpRight, Clock3 } from 'lucide-react';
+import { Send, MessageCircle, X, Mail, ScanLine, ArrowUpRight, Clock3, AlertTriangle, Loader2 } from 'lucide-react';
 import { useDiagnostic } from '@/store/diagnosticContext';
 import { SectionHeader } from '@/components/common/SectionHeader';
 
 const CONTACT_EMAIL = 'dojedacifuentes@gmail.com';
 const WA_NUMBER = '56934301930';
+
+// Real form delivery via Formspree (no backend, no exposed secrets).
+// 1) Create a free form at https://formspree.io  2) paste your form id below
+//    (looks like "xayzqwer"). While it stays as the placeholder, the form
+//    falls back to opening the mail client so it never silently fails.
+const FORMSPREE_ID = 'TU_FORM_ID';
+const FORMSPREE_ENDPOINT = `https://formspree.io/f/${FORMSPREE_ID}`;
+const FORM_CONFIGURED = FORMSPREE_ID !== 'TU_FORM_ID';
 
 const AREAS = ['Jurídico', 'Académico', 'Pyme', 'Salud', 'Otro'];
 
@@ -38,7 +46,8 @@ export function ContactSection() {
     email: '',
     wa: '',
   });
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const sent = status === 'sent';
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -71,10 +80,38 @@ export function ContactSection() {
     return `https://wa.me/${WA_NUMBER}?text=${text}`;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    window.location.href = buildMailto();
-    setSent(true);
+
+    // No provider configured yet → graceful mailto fallback (never fails silently)
+    if (!FORM_CONFIGURED) {
+      window.location.href = buildMailto();
+      setStatus('sent');
+      return;
+    }
+
+    setStatus('sending');
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          nombre: form.name,
+          organizacion: form.org,
+          area: form.area,
+          tipo: form.type,
+          proceso: form.problem,
+          email: form.email,
+          whatsapp: form.wa,
+          diagnostico: buildDiagnosticBlock() || 'sin diagnóstico adjunto',
+          _subject: `Solicitud — ${form.type || 'Proceso'} — ${form.name}`,
+        }),
+      });
+      if (res.ok) setStatus('sent');
+      else setStatus('error');
+    } catch {
+      setStatus('error');
+    }
   };
 
   return (
@@ -206,7 +243,7 @@ export function ContactSection() {
                     <p className="text-base font-bold text-white">Solicitud enviada</p>
                     <p className="text-xs text-zinc-500">Te responderé con una propuesta inicial clara y viable.</p>
                     <button
-                      onClick={() => setSent(false)}
+                      onClick={() => setStatus('idle')}
                       className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors underline underline-offset-4"
                     >
                       Enviar otra solicitud
@@ -289,10 +326,32 @@ export function ContactSection() {
                       </div>
                     </div>
 
+                    {status === 'error' && (
+                      <div className="rounded-lg border border-[oklch(0.66_0.19_18/0.4)] bg-[oklch(0.66_0.19_18/0.08)] px-4 py-3 flex items-center gap-2.5">
+                        <AlertTriangle className="w-4 h-4 text-[oklch(0.74_0.15_18)] shrink-0" />
+                        <p className="text-[12px] text-[oklch(0.82_0.1_18)] leading-snug">
+                          No se pudo enviar. Escríbeme directo por WhatsApp o correo aquí al lado.
+                        </p>
+                      </div>
+                    )}
+
                     <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                      <button type="submit" className="btn-primary flex-1">
-                        <Send className="w-4 h-4" />
-                        Solicitar diagnóstico
+                      <button
+                        type="submit"
+                        disabled={status === 'sending'}
+                        className="btn-primary flex-1 disabled:opacity-60 disabled:cursor-not-allowed"
+                      >
+                        {status === 'sending' ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            Enviando…
+                          </>
+                        ) : (
+                          <>
+                            <Send className="w-4 h-4" />
+                            Solicitar diagnóstico
+                          </>
+                        )}
                       </button>
                       <a
                         href={buildWhatsApp()}

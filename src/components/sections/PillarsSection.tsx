@@ -41,7 +41,8 @@ export function PillarsSection() {
         <SectionHeader
           index="01"
           eyebrow="Sobre mí"
-          title={<>No soy solo un abogado interesado en IA: soy un perfil <em className="serif-italic text-gradient-tech">híbrido</em>.</>}
+          title={<>No soy un abogado que &quot;sabe de IA&quot;: soy un perfil <em className="serif-italic text-gradient-tech">híbrido</em>.</>}
+          sub="Pienso, enseño y construyo. Esa combinación es la que convierte un proceso jurídico desordenado en un sistema claro, trazable y operativo."
         />
 
         <div className="grid lg:grid-cols-[1fr_1.15fr] gap-10 items-start">
