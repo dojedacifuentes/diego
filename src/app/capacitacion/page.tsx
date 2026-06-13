@@ -1,137 +1,128 @@
 'use client';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 import {
-  GraduationCap,
-  Calendar,
-  Clock,
-  ChevronDown,
-  Bot,
-  FileText,
-  Brain,
-  CheckCircle2,
-  Target,
-  Wrench,
-  Users,
-  ArrowRight,
-  ExternalLink,
-  Zap,
-  MessageSquare,
-  Download,
-  BookOpen,
+  GraduationCap, Calendar, Clock, ChevronDown, Bot, FileText, Brain,
+  CheckCircle2, Target, Wrench, ArrowLeft, ArrowUpRight, ScanLine,
+  MessageSquare, Download, BookOpen,
 } from 'lucide-react';
 import { TRAINING_MODULES, TRAINING_DIFFERENTIALS, TYPE_LABELS } from '@/data/training';
 import { team } from '@/data/team';
+import { SectionHeader } from '@/components/common/SectionHeader';
+import { SectionDivider } from '@/components/common/SectionDivider';
+import { GlitchText } from '@/components/common/GlitchText';
+import { Typewriter } from '@/components/common/Typewriter';
 
 const MODULE_ICONS = [Bot, FileText, Brain];
 
 const TYPE_COLORS: Record<string, string> = {
-  theory: 'bg-zinc-500/15 text-zinc-400 border-zinc-500/20',
-  demo: 'bg-cyan-500/15 text-cyan-400 border-cyan-500/20',
-  analysis: 'bg-amber-500/15 text-amber-400 border-amber-500/20',
-  practice: 'bg-indigo-500/15 text-indigo-400 border-indigo-500/20',
-  workshop: 'bg-violet-500/15 text-violet-400 border-violet-500/20',
-  closing: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/20',
+  theory: 'bg-white/[0.04] text-zinc-400 border-[var(--line-mid)]',
+  demo: 'bg-[oklch(0.78_0.13_205/0.1)] text-[oklch(0.82_0.12_205)] border-[oklch(0.78_0.13_205/0.25)]',
+  analysis: 'bg-[oklch(0.78_0.14_75/0.1)] text-[oklch(0.8_0.13_75)] border-[oklch(0.78_0.14_75/0.25)]',
+  practice: 'bg-[oklch(0.62_0.19_285/0.1)] text-[oklch(0.74_0.15_285)] border-[oklch(0.62_0.19_285/0.25)]',
+  workshop: 'bg-[oklch(0.62_0.19_285/0.1)] text-[oklch(0.74_0.15_285)] border-[oklch(0.62_0.19_285/0.25)]',
+  closing: 'bg-[oklch(0.74_0.14_165/0.1)] text-[oklch(0.78_0.13_162)] border-[oklch(0.74_0.14_165/0.25)]',
 };
 
 const WA_NUMBER = '56934301930';
 const WA_DOSSIER = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
-  'Hola, quiero solicitar el dossier del Taller DIAT de IA Jurídica Aplicada.'
+  'Hola Diego, quiero solicitar el dossier del Taller de IA Jurídica Aplicada.'
 )}`;
 const WA_INFO = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
-  'Hola, quiero información sobre el Taller de IA Jurídica Aplicada (próxima fecha: 8 SEP 2026).'
+  'Hola Diego, quiero información sobre el Taller de IA Jurídica Aplicada (próxima fecha: 8 SEP 2026).'
 )}`;
 
 export default function CapacitacionPage() {
   const [openModule, setOpenModule] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState<Record<number, string>>({});
 
-  const toggleModule = (id: number) =>
-    setOpenModule(prev => (prev === id ? null : id));
-
+  const toggleModule = (id: number) => setOpenModule(prev => (prev === id ? null : id));
   const getTab = (id: number) => activeTab[id] ?? 'contenidos';
-  const setTab = (id: number, tab: string) =>
-    setActiveTab(prev => ({ ...prev, [id]: tab }));
+  const setTab = (id: number, tab: string) => setActiveTab(prev => ({ ...prev, [id]: tab }));
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pt-24">
 
-      {/* ── Hero ───────────────────────────────────────────────────────────── */}
-      <section className="pt-28 pb-16 lg:pt-36 lg:pb-20">
-        <div className="max-w-4xl mx-auto px-4 lg:px-8 text-center space-y-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="space-y-4"
+      {/* ── Hero ───────────────────────────────────────────────── */}
+      <section className="relative pt-8 pb-14 overflow-hidden">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse 55% 45% at 50% 0%, oklch(0.78 0.13 205 / 0.07) 0%, transparent 60%)' }}
+          aria-hidden
+        />
+        <div className="max-w-4xl mx-auto px-4 lg:px-8 relative">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-[12px] mono text-zinc-500 hover:text-[oklch(0.82_0.12_205)] transition-colors mb-7"
           >
-            <div className="text-[11px] text-zinc-600 uppercase tracking-widest mono font-medium">
-              Capacitación aplicada · DIAT
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight">
-              Taller de IA Jurídica
-              <span className="text-cyan-400"> Aplicada</span>
-            </h1>
-            <p className="text-base text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-              Programa de formación práctica diseñado para abogados, estudiantes de Derecho y equipos jurídicos que quieren incorporar inteligencia artificial de manera profesional, crítica y verificable.
-            </p>
-          </motion.div>
+            <ArrowLeft className="w-3.5 h-3.5" /> volver a diegoojeda.cl
+          </Link>
 
-          {/* Metadata chips */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="flex flex-wrap items-center justify-center gap-2"
+            transition={{ duration: 0.4 }}
+            className="text-[12px] mono text-zinc-500 mb-5"
           >
+            <Typewriter
+              lines={['diego@diogenes-lab:~$ ./taller --abrir', 'cargando programa · IA jurídica aplicada']}
+              speed={24}
+              lineDelay={280}
+            />
+          </motion.div>
+
+          <div className="eyebrow text-[oklch(0.78_0.13_205)] mb-3">Aula · capacitación aplicada</div>
+          <h1 className="serif text-4xl sm:text-5xl lg:text-[3.6rem] font-semibold leading-[1.05] tracking-tight">
+            <span className="text-gradient-light">Taller de </span>
+            <GlitchText text="IA Jurídica" live className="text-gradient-tech serif-italic" />
+            <span className="text-gradient-light"> Aplicada.</span>
+          </h1>
+          <p className="text-[15px] text-zinc-400 leading-relaxed max-w-2xl mt-5">
+            Formación práctica para abogados, estudiantes de Derecho y equipos jurídicos
+            que quieren incorporar inteligencia artificial de manera profesional, crítica y verificable.
+          </p>
+
+          {/* Meta chips */}
+          <div className="flex flex-wrap items-center gap-2 mt-6">
             {[
-              { icon: Calendar, label: 'Inicio: 8 SEP 2026', color: 'border-cyan-500/30 bg-cyan-500/10 text-cyan-300' },
-              { icon: Clock, label: '6 horas totales · 3 módulos', color: 'border-zinc-700/40 bg-zinc-500/5 text-zinc-400' },
-              { icon: GraduationCap, label: 'Certificación DIAT', color: 'border-indigo-500/30 bg-indigo-500/10 text-indigo-300' },
-            ].map(({ icon: Icon, label, color }) => (
-              <span key={label} className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-medium ${color}`}>
-                <Icon className="w-3.5 h-3.5" />
+              { icon: Calendar, label: 'Inicio: 8 SEP 2026' },
+              { icon: Clock, label: '6 horas · 3 módulos' },
+              { icon: GraduationCap, label: 'Co-dirección · ed. 2026' },
+            ].map(({ icon: Icon, label }) => (
+              <span key={label} className="badge-tech">
+                <Icon className="w-3 h-3" />
                 {label}
               </span>
             ))}
-          </motion.div>
+          </div>
 
           {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className="flex flex-wrap justify-center gap-3 pt-2"
-          >
-            <a
-              href={WA_INFO}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm bg-cyan-500/15 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/22 transition-all"
-            >
+          <div className="flex flex-col sm:flex-row gap-3 mt-7">
+            <a href={WA_INFO} target="_blank" rel="noopener noreferrer" className="btn-primary">
               <MessageSquare className="w-4 h-4" />
               Consultar por WhatsApp
             </a>
-            <a
-              href={WA_DOSSIER}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm border border-zinc-700/50 text-zinc-400 hover:text-zinc-200 hover:border-zinc-600 transition-all"
-            >
+            <a href={WA_DOSSIER} target="_blank" rel="noopener noreferrer" className="btn-secondary glitch-hover">
               <Download className="w-4 h-4" />
               Solicitar dossier
             </a>
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* ── Módulos ─────────────────────────────────────────────────────────── */}
-      <section className="py-16 lg:py-20">
-        <div className="max-w-4xl mx-auto px-4 lg:px-8 space-y-8">
-          <div className="text-center space-y-2">
-            <div className="text-[11px] text-zinc-600 uppercase tracking-widest mono font-medium">Programa</div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white">Contenido por módulo</h2>
-          </div>
+      <SectionDivider label="program" />
+
+      {/* ── Módulos ────────────────────────────────────────────── */}
+      <section className="py-20 lg:py-24">
+        <div className="max-w-4xl mx-auto px-4 lg:px-8 space-y-10">
+          <SectionHeader
+            index="01"
+            eyebrow="Programa"
+            title="Contenido por módulo."
+            sub="Tres sesiones de dos horas. Cada una termina con un entregable real, no con apuntes."
+            align="center"
+          />
 
           <div className="space-y-3">
             {TRAINING_MODULES.map((mod, i) => {
@@ -144,31 +135,27 @@ export default function CapacitacionPage() {
                   key={mod.id}
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, margin: '-40px' }}
                   transition={{ delay: i * 0.08, duration: 0.4 }}
-                  className={`rounded-2xl border overflow-hidden transition-colors duration-200 ${mod.color}`}
+                  className="panel rounded-2xl overflow-hidden card-surface-hover"
                 >
-                  {/* Module header (clickable) */}
                   <button
                     onClick={() => toggleModule(mod.id)}
-                    className="w-full flex items-center gap-4 p-5 text-left group"
+                    className="w-full flex items-center gap-4 p-5 text-left"
                   >
-                    <div className={`w-10 h-10 rounded-xl border ${mod.border} bg-white/[0.03] flex items-center justify-center shrink-0`}>
-                      <Icon className={`w-5 h-5 ${mod.accent}`} />
+                    <div className="w-11 h-11 rounded-xl border border-[var(--line-mid)] bg-white/[0.03] flex items-center justify-center shrink-0">
+                      <Icon className="w-5 h-5 text-[oklch(0.82_0.12_205)]" strokeWidth={1.7} />
                     </div>
                     <div className="flex-1 min-w-0 space-y-0.5">
-                      <div className={`text-[10px] mono uppercase tracking-wider ${mod.accent} opacity-70`}>
+                      <div className="text-[10px] mono uppercase tracking-[0.14em] text-zinc-600">
                         Módulo {mod.id} · {mod.duration} · {mod.displayDate}
                       </div>
-                      <h3 className="text-sm sm:text-base font-semibold text-white leading-snug">{mod.title}</h3>
+                      <h3 className="text-[15px] sm:text-base font-bold text-white leading-snug">{mod.title}</h3>
                       <p className="text-xs text-zinc-500 leading-relaxed hidden sm:block">{mod.subtitle}</p>
                     </div>
-                    <ChevronDown
-                      className={`w-4 h-4 text-zinc-500 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
-                    />
+                    <ChevronDown className={`w-4 h-4 text-zinc-500 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
                   </button>
 
-                  {/* Expanded content */}
                   <AnimatePresence>
                     {isOpen && (
                       <motion.div
@@ -178,8 +165,7 @@ export default function CapacitacionPage() {
                         transition={{ duration: 0.25, ease: 'easeInOut' }}
                         className="overflow-hidden"
                       >
-                        <div className="px-5 pb-6 space-y-5 border-t border-white/[0.05]">
-                          {/* Tabs */}
+                        <div className="px-5 pb-6 space-y-5 border-t border-[var(--line-soft)]">
                           <div className="flex flex-wrap gap-1 pt-4">
                             {[
                               { key: 'contenidos', label: 'Contenidos' },
@@ -192,8 +178,8 @@ export default function CapacitacionPage() {
                                 onClick={() => setTab(mod.id, key)}
                                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                                   tab === key
-                                    ? `${mod.accent} bg-white/[0.07] border border-white/[0.1]`
-                                    : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.04]'
+                                    ? 'text-[oklch(0.84_0.11_205)] bg-[oklch(0.78_0.13_205/0.1)] border border-[oklch(0.78_0.13_205/0.25)]'
+                                    : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.04] border border-transparent'
                                 }`}
                               >
                                 {label}
@@ -201,55 +187,40 @@ export default function CapacitacionPage() {
                             ))}
                           </div>
 
-                          {/* Tab: Contenidos */}
                           {tab === 'contenidos' && (
                             <div className="space-y-2">
                               {mod.contents.map((c, ci) => (
                                 <div key={ci} className="flex items-start gap-2.5">
-                                  <BookOpen className={`w-3.5 h-3.5 ${mod.accent} shrink-0 mt-0.5`} />
+                                  <BookOpen className="w-3.5 h-3.5 text-[oklch(0.82_0.12_205)] shrink-0 mt-0.5" />
                                   <span className="text-xs text-zinc-400 leading-relaxed">{c}</span>
                                 </div>
                               ))}
                               <div className="flex flex-wrap gap-1 pt-2">
                                 {mod.tools.map(t => (
-                                  <span
-                                    key={t}
-                                    className="px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.07] text-zinc-400 text-[10px]"
-                                  >
-                                    {t}
-                                  </span>
+                                  <span key={t} className="badge-tech text-[10px]!">{t}</span>
                                 ))}
                               </div>
                             </div>
                           )}
 
-                          {/* Tab: Objetivos */}
                           {tab === 'objetivos' && (
                             <div className="space-y-2">
                               {mod.objectives.map((obj, oi) => (
                                 <div key={oi} className="flex items-start gap-2.5">
-                                  <CheckCircle2 className={`w-3.5 h-3.5 ${mod.accent} shrink-0 mt-0.5`} />
+                                  <CheckCircle2 className="w-3.5 h-3.5 text-[oklch(0.78_0.13_162)] shrink-0 mt-0.5" />
                                   <span className="text-xs text-zinc-400 leading-relaxed">{obj}</span>
                                 </div>
                               ))}
                             </div>
                           )}
 
-                          {/* Tab: Cronograma */}
                           {tab === 'timeline' && (
                             <div className="space-y-2">
                               {mod.timeline.map((item, ti) => (
-                                <div
-                                  key={ti}
-                                  className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.05]"
-                                >
+                                <div key={ti} className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-[var(--line-soft)]">
                                   <div className="shrink-0 space-y-0.5">
-                                    <span className={`text-[10px] mono font-bold ${mod.accent}`}>{item.time}</span>
-                                    <span
-                                      className={`block text-[9px] px-1.5 py-0.5 rounded border ${
-                                        TYPE_COLORS[item.type] ?? 'bg-zinc-500/10 text-zinc-400 border-zinc-500/20'
-                                      }`}
-                                    >
+                                    <span className="text-[10px] mono font-bold text-[oklch(0.82_0.12_205)]">{item.time}</span>
+                                    <span className={`block text-[9px] px-1.5 py-0.5 rounded border ${TYPE_COLORS[item.type] ?? TYPE_COLORS.theory}`}>
                                       {TYPE_LABELS[item.type] ?? item.type}
                                     </span>
                                   </div>
@@ -262,20 +233,19 @@ export default function CapacitacionPage() {
                             </div>
                           )}
 
-                          {/* Tab: Actividad */}
                           {tab === 'actividad' && (
-                            <div className="space-y-4">
-                              <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.07] space-y-2">
+                            <div className="space-y-3">
+                              <div className="p-4 rounded-xl bg-white/[0.02] border border-[var(--line-soft)] space-y-2">
                                 <div className="flex items-center gap-2">
-                                  <Wrench className={`w-3.5 h-3.5 ${mod.accent}`} />
-                                  <span className={`text-[10px] mono uppercase tracking-wider ${mod.accent}`}>Actividad práctica</span>
+                                  <Wrench className="w-3.5 h-3.5 text-[oklch(0.82_0.12_205)]" />
+                                  <span className="eyebrow text-zinc-500">Actividad práctica</span>
                                 </div>
                                 <p className="text-xs text-zinc-400 leading-relaxed">{mod.activity}</p>
                               </div>
-                              <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.07] space-y-2">
+                              <div className="p-4 rounded-xl bg-white/[0.02] border border-[var(--line-soft)] space-y-2">
                                 <div className="flex items-center gap-2">
-                                  <Target className={`w-3.5 h-3.5 ${mod.accent}`} />
-                                  <span className={`text-[10px] mono uppercase tracking-wider ${mod.accent}`}>Entregable</span>
+                                  <Target className="w-3.5 h-3.5 text-[oklch(0.78_0.13_162)]" />
+                                  <span className="eyebrow text-zinc-500">Entregable</span>
                                 </div>
                                 <p className="text-xs text-zinc-400 leading-relaxed">{mod.deliverable}</p>
                               </div>
@@ -292,24 +262,29 @@ export default function CapacitacionPage() {
         </div>
       </section>
 
-      {/* ── Diferenciales ───────────────────────────────────────────────────── */}
-      <section className="py-16 lg:py-20">
-        <div className="max-w-4xl mx-auto px-4 lg:px-8 space-y-8">
-          <div className="text-center space-y-2">
-            <div className="text-[11px] text-zinc-600 uppercase tracking-widest mono font-medium">Diferenciales</div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white">¿Por qué este taller?</h2>
-          </div>
+      <SectionDivider label="why" />
+
+      {/* ── Diferenciales ──────────────────────────────────────── */}
+      <section className="py-20 lg:py-24">
+        <div className="max-w-4xl mx-auto px-4 lg:px-8 space-y-10">
+          <SectionHeader
+            index="02"
+            eyebrow="Diferenciales"
+            title="Por qué este taller."
+            sub="No es una charla genérica sobre IA. Se trabaja con casos reales, flujos verificables y criterio profesional."
+            align="center"
+          />
           <div className="grid sm:grid-cols-2 gap-3">
             {TRAINING_DIFFERENTIALS.map((diff, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.07, duration: 0.4 }}
-                className="flex items-start gap-3 p-4 rounded-xl border border-zinc-800/60 bg-white/[0.02] card-surface-hover"
+                viewport={{ once: true, margin: '-30px' }}
+                transition={{ delay: (i % 2) * 0.08, duration: 0.4 }}
+                className="flex items-start gap-3 p-4 rounded-xl panel card-surface-hover"
               >
-                <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-4 h-4 text-[oklch(0.82_0.12_205)] shrink-0 mt-0.5" />
                 <p className="text-sm text-zinc-400 leading-relaxed">{diff}</p>
               </motion.div>
             ))}
@@ -317,65 +292,53 @@ export default function CapacitacionPage() {
         </div>
       </section>
 
-      {/* ── Facilitadores ───────────────────────────────────────────────────── */}
-      <section className="py-16 lg:py-20">
-        <div className="max-w-4xl mx-auto px-4 lg:px-8 space-y-8">
-          <div className="text-center space-y-2">
-            <div className="text-[11px] text-zinc-600 uppercase tracking-widest mono font-medium">Equipo</div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white">Facilitadores</h2>
-            <p className="text-sm text-zinc-500">Diseñado e impartido por quienes viven la intersección entre Derecho e IA.</p>
-          </div>
+      <SectionDivider label="team" />
 
+      {/* ── Facilitadores ──────────────────────────────────────── */}
+      <section className="py-20 lg:py-24">
+        <div className="max-w-4xl mx-auto px-4 lg:px-8 space-y-10">
+          <SectionHeader
+            index="03"
+            eyebrow="Equipo"
+            title="Quién lo imparte."
+            sub="Diseñado e impartido por quienes viven la intersección entre Derecho e IA."
+            align="center"
+          />
           <div className="grid sm:grid-cols-2 gap-4">
             {team.map((member, i) => (
               <motion.div
                 key={member.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: '-40px' }}
                 transition={{ delay: i * 0.1, duration: 0.45 }}
-                className={`rounded-2xl border p-6 space-y-4 card-surface-hover ${member.color}`}
+                className="panel rounded-2xl p-6 space-y-4 card-surface-hover"
               >
-                {/* Avatar + name */}
                 <div className="flex items-start gap-4">
-                  <div className={`w-12 h-12 rounded-2xl border ${member.color.replace('bg-', 'border-').replace('/5', '/30')} bg-white/[0.05] flex items-center justify-center shrink-0`}>
-                    <span className={`text-sm font-black ${member.accent}`}>{member.initials}</span>
+                  <div className="w-12 h-12 rounded-2xl border border-[oklch(0.78_0.13_205/0.3)] bg-[oklch(0.78_0.13_205/0.06)] flex items-center justify-center shrink-0">
+                    <span className="text-sm font-black text-[oklch(0.84_0.11_205)] mono">{member.initials}</span>
                   </div>
                   <div>
                     <h3 className="text-sm font-bold text-white">{member.name}</h3>
-                    <p className={`text-xs ${member.accent} leading-snug mt-0.5`}>{member.role}</p>
+                    <p className="text-xs text-[oklch(0.78_0.1_205)] leading-snug mt-0.5">{member.role}</p>
                   </div>
                 </div>
-
                 <p className="text-xs text-zinc-500 leading-relaxed">{member.description}</p>
-
-                {/* Areas */}
-                <div className="flex flex-wrap gap-1">
+                <div className="flex flex-wrap gap-1.5">
                   {member.areas.slice(0, 4).map(area => (
-                    <span
-                      key={area}
-                      className="px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.07] text-zinc-400 text-[10px]"
-                    >
-                      {area}
-                    </span>
+                    <span key={area} className="badge-tech text-[10px]!">{area}</span>
                   ))}
                 </div>
-
-                {/* Links */}
-                <div className="flex items-center gap-3 pt-1">
+                <div className="flex items-center gap-4 pt-1">
                   <a
                     href={member.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-1.5 text-xs ${member.accent} hover:opacity-80 transition-opacity`}
+                    className="inline-flex items-center gap-1.5 text-xs text-[oklch(0.82_0.12_205)] hover:opacity-80 transition-opacity"
                   >
-                    <ExternalLink className="w-3 h-3" />
-                    LinkedIn
+                    <ArrowUpRight className="w-3 h-3" /> LinkedIn
                   </a>
-                  <a
-                    href={`mailto:${member.email}`}
-                    className="inline-flex items-center gap-1.5 text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
-                  >
+                  <a href={`mailto:${member.email}`} className="text-xs mono text-zinc-600 hover:text-zinc-400 transition-colors truncate">
                     {member.email}
                   </a>
                 </div>
@@ -385,81 +348,53 @@ export default function CapacitacionPage() {
         </div>
       </section>
 
-      {/* ── Dossier + Contact block ──────────────────────────────────────────── */}
-      <section className="py-16 lg:py-20">
-        <div className="max-w-3xl mx-auto px-4 lg:px-8">
+      <SectionDivider label="next" />
+
+      {/* ── Closing CTA ────────────────────────────────────────── */}
+      <section className="py-20 lg:py-24">
+        <div className="max-w-3xl mx-auto px-4 lg:px-8 space-y-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="rounded-2xl border border-cyan-500/20 bg-cyan-500/5 p-8 text-center space-y-6"
+            className="panel-raised rounded-2xl p-8 text-center space-y-6 corner-frame"
           >
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl border border-[oklch(0.78_0.13_205/0.3)] bg-[oklch(0.78_0.13_205/0.08)] mx-auto glow-cyan">
+              <GraduationCap className="w-6 h-6 text-[oklch(0.82_0.12_205)]" />
+            </div>
             <div className="space-y-2">
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl border border-cyan-500/30 bg-cyan-500/10 mx-auto">
-                <GraduationCap className="w-6 h-6 text-cyan-400" />
-              </div>
-              <h2 className="text-2xl font-bold text-white">¿Tu institución o equipo quiere este taller?</h2>
+              <h2 className="serif text-2xl font-semibold text-white">¿Tu institución o equipo quiere este taller?</h2>
               <p className="text-sm text-zinc-400 max-w-xl mx-auto leading-relaxed">
-                El programa puede adaptarse a instituciones, facultades de Derecho, estudios jurídicos y equipos específicos. Cuéntanos tu contexto y lo diseñamos a medida.
+                El programa se adapta a facultades de Derecho, estudios jurídicos y equipos.
+                Cuéntame tu contexto y lo diseño a medida.
               </p>
             </div>
-
-            <div className="flex flex-wrap justify-center gap-3">
-              <a
-                href={WA_INFO}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm bg-cyan-500/15 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/22 transition-all"
-              >
-                <MessageSquare className="w-4 h-4" />
-                Consultar por WhatsApp
+            <div className="flex flex-col sm:flex-row justify-center gap-3">
+              <a href={WA_INFO} target="_blank" rel="noopener noreferrer" className="btn-primary">
+                <MessageSquare className="w-4 h-4" /> Consultar por WhatsApp
               </a>
-              <a
-                href={WA_DOSSIER}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm border border-zinc-700/50 text-zinc-400 hover:text-zinc-200 hover:border-zinc-600 transition-all"
-              >
-                <Download className="w-4 h-4" />
-                Solicitar dossier
-              </a>
-              <a
-                href="mailto:dojedacifuentes@gmail.com?subject=Taller%20IA%20Jur%C3%ADdica%20Aplicada"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-sm border border-zinc-700/50 text-zinc-400 hover:text-zinc-200 hover:border-zinc-600 transition-all"
-              >
-                <ArrowRight className="w-4 h-4" />
-                Enviar correo
+              <a href={WA_DOSSIER} target="_blank" rel="noopener noreferrer" className="btn-secondary">
+                <Download className="w-4 h-4" /> Solicitar dossier
               </a>
             </div>
-
-            <p className="text-[11px] text-zinc-600">
-              dojedacifuentes@gmail.com · diegoandradecortes@gmail.com · WA +56 9 3430 1930
-            </p>
+            <p className="text-[11px] mono text-zinc-600">dojedacifuentes@gmail.com · WA +56 9 3430 1930</p>
           </motion.div>
-        </div>
-      </section>
 
-      {/* ── Eval IA block ────────────────────────────────────────────────────── */}
-      <section className="py-16 lg:py-20 border-t border-white/[0.04]">
-        <div className="max-w-3xl mx-auto px-4 lg:px-8 text-center space-y-4">
-          <div className="text-[11px] text-zinc-600 uppercase tracking-widest mono font-medium">
-            ¿Listo para más?
-          </div>
-          <h2 className="text-2xl font-bold text-white">Evalúa la compatibilidad IA de tu práctica jurídica</h2>
-          <p className="text-sm text-zinc-500 max-w-lg mx-auto leading-relaxed">
-            Nuestro evaluador gratuito identifica qué procesos de tu trabajo son candidatos reales para automatización con IA.
-          </p>
-          <div className="pt-2">
-            <a
-              href="/#evaluacion"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm bg-cyan-500/15 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/22 transition-all"
-            >
-              <Zap className="w-4 h-4" />
-              Evaluar mi compatibilidad IA
-              <ArrowRight className="w-4 h-4" />
-            </a>
-          </div>
+          {/* Cross-link to the lab tools */}
+          <Link
+            href="/diagnostico"
+            className="group flex items-center gap-4 panel rounded-xl px-5 py-4 card-surface-hover"
+          >
+            <div className="w-10 h-10 rounded-lg border border-[oklch(0.78_0.13_205/0.35)] bg-[oklch(0.78_0.13_205/0.08)] flex items-center justify-center shrink-0">
+              <ScanLine className="w-4.5 h-4.5 text-[oklch(0.82_0.12_205)]" />
+            </div>
+            <div className="flex-1">
+              <div className="text-[13.5px] font-bold text-white glitch-hover">¿Y tu proceso, es candidato a IA?</div>
+              <div className="text-[11.5px] text-zinc-500 mt-0.5">Corre el AI Readiness Scanner — diagnóstico en 8 preguntas</div>
+            </div>
+            <ArrowUpRight className="w-4 h-4 text-zinc-600 group-hover:text-[oklch(0.82_0.12_205)] transition-colors" />
+          </Link>
         </div>
       </section>
 

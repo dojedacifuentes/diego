@@ -6,6 +6,8 @@ import { SavingsSimulator } from '@/components/sections/SavingsSimulator';
 import { SolutionsSection } from '@/components/sections/SolutionsSection';
 import { MethodSection } from '@/components/sections/MethodSection';
 import { BenchmarkSection } from '@/components/sections/BenchmarkSection';
+import { SectionDivider } from '@/components/common/SectionDivider';
+import { GlitchText } from '@/components/common/GlitchText';
 
 export const metadata: Metadata = {
   title: 'Diagnóstico IA · Diego Ojeda',
@@ -30,7 +32,8 @@ export default function DiagnosticoPage() {
           <span className="eyebrow text-zinc-500">herramientas en vivo</span>
         </div>
         <h1 className="serif text-3xl sm:text-4xl lg:text-5xl font-semibold leading-[1.08] tracking-tight text-gradient-light mt-4 max-w-2xl">
-          Diagnóstico, ROI y método de trabajo.
+          Diagnóstico, ROI y{' '}
+          <GlitchText text="método" live className="text-gradient-tech serif-italic" /> de trabajo.
         </h1>
         <p className="text-[15px] text-zinc-400 leading-relaxed mt-4 max-w-2xl">
           Tres experimentos del lab y la forma en que construyo: evalúa tu proceso,
@@ -39,9 +42,13 @@ export default function DiagnosticoPage() {
       </header>
 
       <AIEvaluationSection />
+      <SectionDivider label="roi" />
       <SavingsSimulator />
+      <SectionDivider label="services" />
       <SolutionsSection />
+      <SectionDivider label="method" />
       <MethodSection />
+      <SectionDivider label="context" />
       <BenchmarkSection />
     </div>
   );
