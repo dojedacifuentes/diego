@@ -1,4 +1,5 @@
 'use client';
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, ArrowRight } from 'lucide-react';
 import { GlitchText } from '@/components/common/GlitchText';
@@ -6,14 +7,36 @@ import { Typewriter } from '@/components/common/Typewriter';
 import { DiogenesLamp } from '@/components/common/DiogenesLamp';
 
 export function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+
   const scrollTo = (id: string) =>
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  const onMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', `${e.clientX - r.left}px`);
+    el.style.setProperty('--my', `${e.clientY - r.top}px`);
+  };
 
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden"
+      ref={sectionRef}
+      onMouseMove={onMouseMove}
+      className="group/hero relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden"
     >
+      {/* Cursor-follow spotlight */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-0 group-hover/hero:opacity-100 transition-opacity duration-500"
+        style={{
+          background:
+            'radial-gradient(420px circle at var(--mx, 32%) var(--my, 42%), oklch(0.78 0.13 205 / 0.1), transparent 70%)',
+        }}
+        aria-hidden
+      />
+
       {/* Local spotlight */}
       <div
         className="absolute inset-0 pointer-events-none"

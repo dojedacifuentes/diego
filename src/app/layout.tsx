@@ -5,6 +5,7 @@ import { GridBackground } from '@/components/common/GridBackground';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { AICommandBar } from '@/components/common/AICommandBar';
+import { ScrollProgress } from '@/components/common/ScrollProgress';
 import { ClientProviders } from '@/components/common/ClientProviders';
 
 const spaceGrotesk = Space_Grotesk({
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body className="scanlines min-h-full bg-[oklch(0.1_0.02_255)] text-zinc-200 overflow-x-hidden">
         <GridBackground />
+        <ScrollProgress />
         <ClientProviders>
           <div className="relative z-10">
             <Navbar />

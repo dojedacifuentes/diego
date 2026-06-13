@@ -73,7 +73,7 @@ export function TrajectorySection() {
       <div className="max-w-5xl mx-auto px-4 lg:px-8 space-y-14 relative">
 
         <SectionHeader
-          index="02"
+          index="04"
           eyebrow="Trayectoria"
           title="Una ruta entre la academia y el código."
           sub="Cada etapa alimenta la siguiente: la filosofía da el criterio, el derecho da el campo, la tecnología da las herramientas."

@@ -1,8 +1,7 @@
 'use client';
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ExternalLink, Code2, Star, ScanLine, Calculator, ArrowUpRight } from 'lucide-react';
-import { projects, CATEGORIES, type ProjectCategory } from '@/data/projects';
+import { projects, type ProjectCategory } from '@/data/projects';
 import { SectionHeader } from '@/components/common/SectionHeader';
 import { DiogenesLamp } from '@/components/common/DiogenesLamp';
 
@@ -115,12 +114,10 @@ function MiniMock({ variant }: { variant: MockVariant }) {
 }
 
 export function PortfolioSection() {
-  const [activeCategory, setActiveCategory] = useState<ProjectCategory>('Todos');
-
-  const filtered =
-    activeCategory === 'Todos'
-      ? projects
-      : projects.filter(p => p.category === activeCategory);
+  // Featured-first — no filter clutter, just a curated, ordered grid.
+  const ordered = [...projects].sort(
+    (a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)),
+  );
 
   return (
     <section id="lab" className="py-24 lg:py-32 relative">
@@ -151,41 +148,22 @@ export function PortfolioSection() {
           </motion.div>
 
           <SectionHeader
-            index="04"
+            index="02"
             eyebrow="Laboratorio"
             title="Proyectos construidos sobre problemas reales."
             sub="Cada prototipo es evidencia de capacidad técnica y criterio de diseño: interfaces, automatización, IA aplicada y despliegue real en producción."
           />
         </div>
 
-        {/* Filters */}
-        <div className="flex flex-wrap gap-2">
-          {CATEGORIES.map(cat => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all border ${
-                activeCategory === cat
-                  ? 'border-[oklch(0.78_0.13_205/0.5)] bg-[oklch(0.78_0.13_205/0.12)] text-[oklch(0.86_0.09_205)]'
-                  : 'border-[var(--line-soft)] bg-white/[0.02] text-zinc-500 hover:text-zinc-200 hover:border-[var(--line-strong)]'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        {/* Project cards */}
+        {/* Project cards — curated, featured first */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <AnimatePresence mode="popLayout">
-            {filtered.map(p => (
+            {ordered.map((p, i) => (
               <motion.div
                 key={p.title}
-                layout
-                initial={{ opacity: 0, scale: 0.97 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.97 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.45, delay: (i % 3) * 0.08 }}
                 className="group panel rounded-2xl p-4 space-y-4 card-surface-hover hover-lift flex flex-col"
               >
                 <MiniMock variant={VARIANT_BY_CATEGORY[p.category] ?? 'dashboard'} />
@@ -254,7 +232,6 @@ export function PortfolioSection() {
                 )}
               </motion.div>
             ))}
-          </AnimatePresence>
         </div>
 
         {/* Live experiments bridge */}
