@@ -111,6 +111,142 @@ function ScoreRing({ value, ring }: { value: number; ring: string }) {
   );
 }
 
+/* ── Strategic analysis readout — status bars + risk/opportunity
+   tags + connected nodes, with reading micro-animations. ─────────── */
+function tagFor(v: number) {
+  if (v >= 66) return { label: 'OPORTUNIDAD', color: 'oklch(0.82 0.12 205)', dim: 'oklch(0.78 0.13 205 / 0.12)', bd: 'oklch(0.78 0.13 205 / 0.35)' };
+  if (v >= 42) return { label: 'POTENCIAL', color: 'oklch(0.74 0.15 285)', dim: 'oklch(0.62 0.19 285 / 0.12)', bd: 'oklch(0.62 0.19 285 / 0.35)' };
+  return { label: 'BRECHA', color: 'oklch(0.8 0.13 75)', dim: 'oklch(0.78 0.14 75 / 0.12)', bd: 'oklch(0.78 0.14 75 / 0.32)' };
+}
+
+function NodeMatrix({ data }: { data: { label: string; value: number }[] }) {
+  const cx = 90, cy = 90, R = 64;
+  const N = data.length;
+  const angle = (i: number) => (Math.PI * 2 * i) / N - Math.PI / 2;
+  const pt = (i: number, r: number) => [cx + r * Math.cos(angle(i)), cy + r * Math.sin(angle(i))] as const;
+  const topIdx = data.reduce((best, d, i) => (d.value > data[best].value ? i : best), 0);
+
+  return (
+    <svg viewBox="0 0 180 180" className="w-full max-w-[200px] mx-auto" aria-hidden>
+      {/* edges core → node */}
+      {data.map((d, i) => {
+        const [x, y] = pt(i, R);
+        const active = i === topIdx;
+        return (
+          <line
+            key={`e${i}`}
+            x1={cx} y1={cy} x2={x} y2={y}
+            stroke={active ? 'oklch(0.78 0.13 205 / 0.6)' : 'oklch(0.99 0.005 240 / 0.1)'}
+            strokeWidth="1"
+            strokeDasharray="3 5"
+            style={{ animation: `dash-flow ${active ? 2 : 3.4}s linear infinite` }}
+          />
+        );
+      })}
+      {/* nodes */}
+      {data.map((d, i) => {
+        const [x, y] = pt(i, R);
+        const active = i === topIdx;
+        const rad = 3 + (d.value / 100) * 4;
+        return (
+          <g key={`n${i}`}>
+            <motion.circle
+              cx={x} cy={y} r={rad + 5}
+              fill={active ? 'oklch(0.78 0.13 205 / 0.12)' : 'oklch(0.99 0.005 240 / 0.03)'}
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 + i * 0.08 }}
+            />
+            <motion.circle
+              cx={x} cy={y} r={rad}
+              fill={active ? 'oklch(0.84 0.12 205)' : 'oklch(0.55 0.04 245)'}
+              initial={{ scale: 0 }} animate={{ scale: 1 }}
+              transition={{ delay: 0.3 + i * 0.08, type: 'spring', stiffness: 260, damping: 16 }}
+              style={{ transformOrigin: `${x}px ${y}px` }}
+            />
+            {active && (
+              <circle cx={x} cy={y} r={rad}>
+                <animate attributeName="r" values={`${rad};${rad + 7};${rad}`} dur="2.2s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0.6;0;0.6" dur="2.2s" repeatCount="indefinite" />
+                <set attributeName="fill" to="oklch(0.84 0.12 205)" />
+              </circle>
+            )}
+          </g>
+        );
+      })}
+      {/* core */}
+      <circle cx={cx} cy={cy} r="6" fill="oklch(0.16 0.025 255)" stroke="oklch(0.78 0.13 205 / 0.6)" strokeWidth="1.2" />
+      <circle cx={cx} cy={cy} r="2" fill="oklch(0.84 0.12 205)" />
+    </svg>
+  );
+}
+
+function AnalysisReadout({ result }: { result: DiagnosticResult }) {
+  return (
+    <div className="panel-deep rounded-2xl overflow-hidden scanline">
+      {/* Panel header — reading status */}
+      <div className="flex items-center justify-between px-5 py-3 border-b border-[var(--line-soft)] bg-[oklch(0.13_0.023_255/0.7)]">
+        <div className="flex items-center gap-2.5">
+          <RadarIcon className="w-3.5 h-3.5 text-[oklch(0.82_0.12_205)]" />
+          <span className="text-[11px] mono text-zinc-400 tracking-wide">matriz de análisis · 6 ejes</span>
+        </div>
+        <span className="flex items-center gap-1.5">
+          <span className="status-dot bg-[oklch(0.74_0.14_165)]" />
+          <span className="text-[9px] mono text-zinc-500 uppercase">lectura completa</span>
+        </span>
+      </div>
+
+      <div className="grid lg:grid-cols-[1.35fr_0.65fr]">
+        {/* Status bars with risk/opportunity tags */}
+        <div className="p-5 sm:p-6 space-y-3 lg:border-r border-[var(--line-soft)]">
+          {result.radar.map((axis, i) => {
+            const t = tagFor(axis.value);
+            return (
+              <motion.div
+                key={axis.label}
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.15 + i * 0.09, duration: 0.4 }}
+                className="space-y-1.5"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-[11.5px] mono text-zinc-400 tracking-wide">{axis.label}</span>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className="text-[11px] mono font-bold" style={{ color: t.color }}>
+                      {axis.value}
+                    </span>
+                    <span
+                      className="text-[8.5px] mono tracking-[0.12em] px-1.5 py-0.5 rounded border"
+                      style={{ color: t.color, background: t.dim, borderColor: t.bd }}
+                    >
+                      {t.label}
+                    </span>
+                  </div>
+                </div>
+                <div className="h-1.5 rounded-full bg-[oklch(0.99_0.005_240/0.05)] overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${axis.value}%` }}
+                    transition={{ delay: 0.3 + i * 0.09, duration: 0.8, ease: 'easeOut' }}
+                    className="h-full rounded-full"
+                    style={{ background: `linear-gradient(90deg, ${t.color} / 0.5, ${t.color})`, backgroundColor: t.color }}
+                  />
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Connected nodes */}
+        <div className="p-5 flex flex-col items-center justify-center gap-2 bg-[oklch(0.125_0.022_255/0.4)]">
+          <NodeMatrix data={result.radar} />
+          <p className="text-[10px] mono text-zinc-600 text-center leading-relaxed">
+            nodo activo: eje de mayor<br />potencial detectado
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ── Scanner shell chrome ──────────────────────────────────────── */
 function ScannerChrome({ phase, step }: { phase: Phase; step: number }) {
   return (
@@ -425,20 +561,39 @@ export function AIEvaluationSection() {
                   </div>
                 </div>
 
-                {/* Diagnostic grid */}
+                {/* Strategic analysis panel — status bars, risk/opportunity, nodes */}
+                <AnalysisReadout result={result} />
+
+                {/* Diagnostic readout row */}
                 <div className="grid sm:grid-cols-3 gap-3">
                   {[
-                    { icon: Gauge, label: 'Madurez digital', value: result.maturityLabel, tone: 'text-[oklch(0.82_0.12_205)]' },
-                    { icon: AlertTriangle, label: 'Riesgo operativo', value: result.riskLabel, tone: 'text-[oklch(0.8_0.13_75)]' },
-                    { icon: Target, label: 'Prioridad declarada', value: result.priority, tone: 'text-[oklch(0.72_0.16_285)]' },
-                  ].map(({ icon: Icon, label, value, tone }) => (
-                    <div key={label} className="rounded-xl border border-[var(--line-soft)] bg-white/[0.02] p-4 space-y-1.5">
+                    { icon: Gauge, label: 'Madurez digital', value: result.maturityLabel, tone: 'oklch(0.82 0.12 205)' },
+                    { icon: AlertTriangle, label: 'Riesgo operativo', value: result.riskLabel, tone: 'oklch(0.8 0.13 75)' },
+                    { icon: Target, label: 'Prioridad declarada', value: result.priority, tone: 'oklch(0.74 0.15 285)' },
+                  ].map(({ icon: Icon, label, value, tone }, i) => (
+                    <motion.div
+                      key={label}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5 + i * 0.1, duration: 0.4 }}
+                      className="rounded-xl border border-[var(--line-soft)] bg-white/[0.02] p-4 space-y-2 relative overflow-hidden"
+                    >
                       <div className="flex items-center gap-2">
-                        <Icon className={`w-3.5 h-3.5 ${tone}`} strokeWidth={1.8} />
+                        <Icon className="w-3.5 h-3.5" style={{ color: tone }} strokeWidth={1.8} />
                         <span className="text-[10px] mono uppercase tracking-wider text-zinc-600">{label}</span>
                       </div>
                       <div className="text-[13px] font-semibold text-zinc-200 leading-snug">{value}</div>
-                    </div>
+                      {/* reading bar */}
+                      <div className="h-0.5 rounded-full bg-[oklch(0.99_0.005_240/0.05)] overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: '100%' }}
+                          transition={{ delay: 0.6 + i * 0.1, duration: 1, ease: 'easeOut' }}
+                          className="h-full rounded-full"
+                          style={{ backgroundColor: tone, opacity: 0.6 }}
+                        />
+                      </div>
+                    </motion.div>
                   ))}
                 </div>
 
