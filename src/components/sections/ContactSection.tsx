@@ -5,7 +5,9 @@ import { Send, MessageCircle, X, Mail, ScanLine, ArrowUpRight, Clock3, AlertTria
 import { useDiagnostic } from '@/store/diagnosticContext';
 import { SectionHeader } from '@/components/common/SectionHeader';
 
-const CONTACT_EMAIL = 'dojedacifuentes@gmail.com';
+const CONTACT_EMAIL = 'dojedacifuentes@gmail.com';     // proyectos / personal
+const EMAIL_DIAT = 'diego.ojeda.c@pucv.cl';            // asuntos DIAT / académicos
+const LINKEDIN_URL = 'https://www.linkedin.com/in/diegoojedac/';
 const WA_NUMBER = '56934301930';
 
 // Real form delivery via Formspree (no backend, no exposed secrets).
@@ -186,11 +188,39 @@ export function ContactSection() {
                 <div className="w-9 h-9 rounded-lg border border-[oklch(0.78_0.13_205/0.35)] bg-[oklch(0.78_0.13_205/0.07)] flex items-center justify-center shrink-0">
                   <Mail className="w-4 h-4 text-[oklch(0.82_0.12_205)]" strokeWidth={1.8} />
                 </div>
-                <div className="flex-1">
-                  <div className="text-[13px] font-semibold text-white">Escribir por correo</div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[13px] font-semibold text-white">Correo · proyectos</div>
                   <div className="text-[11px] mono text-zinc-600 truncate">{CONTACT_EMAIL}</div>
                 </div>
-                <ArrowUpRight className="w-4 h-4 text-zinc-600 group-hover:text-[oklch(0.82_0.12_205)] transition-colors" />
+                <ArrowUpRight className="w-4 h-4 text-zinc-600 group-hover:text-[oklch(0.82_0.12_205)] transition-colors shrink-0" />
+              </a>
+              <a
+                href={`mailto:${EMAIL_DIAT}`}
+                className="group flex items-center gap-3.5 panel rounded-xl px-4 py-3.5 card-surface-hover"
+              >
+                <div className="w-9 h-9 rounded-lg border border-[oklch(0.62_0.19_285/0.35)] bg-[oklch(0.62_0.19_285/0.07)] flex items-center justify-center shrink-0">
+                  <Mail className="w-4 h-4 text-[oklch(0.72_0.16_285)]" strokeWidth={1.8} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[13px] font-semibold text-white">Correo · DIAT / académico</div>
+                  <div className="text-[11px] mono text-zinc-600 truncate">{EMAIL_DIAT}</div>
+                </div>
+                <ArrowUpRight className="w-4 h-4 text-zinc-600 group-hover:text-[oklch(0.72_0.16_285)] transition-colors shrink-0" />
+              </a>
+              <a
+                href={LINKEDIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3.5 panel rounded-xl px-4 py-3.5 card-surface-hover"
+              >
+                <div className="w-9 h-9 rounded-lg border border-[var(--line-mid)] bg-white/[0.02] flex items-center justify-center shrink-0">
+                  <ArrowUpRight className="w-4 h-4 text-zinc-300" strokeWidth={1.8} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[13px] font-semibold text-white">LinkedIn · perfil profesional</div>
+                  <div className="text-[11px] mono text-zinc-600 truncate">in/diegoojedac</div>
+                </div>
+                <ArrowUpRight className="w-4 h-4 text-zinc-600 group-hover:text-zinc-300 transition-colors shrink-0" />
               </a>
             </div>
           </motion.div>

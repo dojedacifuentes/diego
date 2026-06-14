@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Command, Search, CornerDownLeft, User, FolderGit2, Eye, Route as RouteIcon,
   ScanLine, Calculator, GraduationCap, MessageCircle, Mail, Copy, ArrowUpRight, Send,
+  ExternalLink, Code2,
 } from 'lucide-react';
 
 type Cmd = {
@@ -25,6 +26,10 @@ type CmdCtx = {
 
 const WA = `https://wa.me/56934301930?text=${encodeURIComponent('Hola Diego, vengo desde diegoojeda.cl.')}`;
 const EMAIL = 'dojedacifuentes@gmail.com';
+const EMAIL_DIAT = 'diego.ojeda.c@pucv.cl';
+const LINKEDIN = 'https://www.linkedin.com/in/diegoojedac/';
+const GITHUB = 'https://github.com/dojedacifuentes';
+const DIAT_SITE = 'https://diatpucv.cl/';
 
 const COMMANDS: Cmd[] = [
   { id: 'perfil', group: 'Navegar', icon: User, label: 'Perfil', run: c => c.go('perfil') },
@@ -38,7 +43,11 @@ const COMMANDS: Cmd[] = [
   { id: 'taller', group: 'Herramientas', icon: GraduationCap, label: 'Talleres de IA jurídica', keywords: 'capacitacion curso', run: c => { c.router.push('/capacitacion'); c.close(); } },
 
   { id: 'wa', group: 'Contacto', icon: MessageCircle, label: 'Escribir por WhatsApp', run: c => { window.open(WA, '_blank'); c.close(); } },
-  { id: 'mail', group: 'Contacto', icon: Mail, label: 'Enviar correo', run: c => { window.location.href = `mailto:${EMAIL}`; c.close(); } },
+  { id: 'mail', group: 'Contacto', icon: Mail, label: 'Correo · proyectos', keywords: 'email gmail personal', run: c => { window.location.href = `mailto:${EMAIL}`; c.close(); } },
+  { id: 'mail-diat', group: 'Contacto', icon: Mail, label: 'Correo · DIAT / académico', keywords: 'email pucv', run: c => { window.location.href = `mailto:${EMAIL_DIAT}`; c.close(); } },
+  { id: 'linkedin', group: 'Contacto', icon: ExternalLink, label: 'LinkedIn', run: c => { window.open(LINKEDIN, '_blank'); c.close(); } },
+  { id: 'github', group: 'Contacto', icon: Code2, label: 'GitHub', run: c => { window.open(GITHUB, '_blank'); c.close(); } },
+  { id: 'diat', group: 'Contacto', icon: ExternalLink, label: 'Programa DIAT · diatpucv.cl', keywords: 'pucv', run: c => { window.open(DIAT_SITE, '_blank'); c.close(); } },
   { id: 'copy', group: 'Contacto', icon: Copy, label: 'Copiar correo', keywords: 'email', run: c => { navigator.clipboard?.writeText(EMAIL); c.close(); } },
 ];
 

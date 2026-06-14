@@ -1,4 +1,5 @@
 import { DiogenesLamp } from '@/components/common/DiogenesLamp';
+import { ExternalLink, Mail, MessageCircle, Code2 } from 'lucide-react';
 
 const footerCols = [
   {
@@ -7,29 +8,37 @@ const footerCols = [
       { label: 'Perfil', href: '/#perfil' },
       { label: 'Trayectoria', href: '/#trayectoria' },
       { label: 'Investigación', href: '/#investigacion' },
-      { label: 'Docencia y talleres', href: '/#docencia' },
+      { label: 'Proyectos', href: '/#lab' },
     ],
   },
   {
     title: 'Diógenes Lab',
     links: [
-      { label: 'Proyectos', href: '/#lab' },
-      { label: 'Diagnóstico IA', href: '/#evaluacion' },
-      { label: 'Simulador ROI', href: '/#simulador' },
+      { label: 'Diagnóstico IA', href: '/diagnostico' },
+      { label: 'Simulador ROI', href: '/diagnostico#simulador' },
+      { label: 'Método', href: '/diagnostico#metodo' },
       { label: 'Programa del taller', href: '/capacitacion' },
     ],
   },
   {
-    title: 'Trabajo',
+    title: 'Vínculos',
     links: [
-      { label: 'Servicios', href: '/#servicios' },
-      { label: 'Método', href: '/#metodo' },
+      { label: 'Programa DIAT ↗', href: 'https://diatpucv.cl/' },
+      { label: 'LinkedIn ↗', href: 'https://www.linkedin.com/in/diegoojedac/' },
+      { label: 'GitHub ↗', href: 'https://github.com/dojedacifuentes' },
       { label: 'Contacto', href: '/#contacto' },
     ],
   },
 ];
 
 const STACK = ['Next.js', 'TypeScript', 'Claude', 'Vercel', 'Tailwind'];
+
+const SOCIALS = [
+  { icon: ExternalLink, href: 'https://www.linkedin.com/in/diegoojedac/', label: 'LinkedIn' },
+  { icon: Code2, href: 'https://github.com/dojedacifuentes', label: 'GitHub' },
+  { icon: Mail, href: 'mailto:dojedacifuentes@gmail.com', label: 'Correo' },
+  { icon: MessageCircle, href: 'https://wa.me/56934301930', label: 'WhatsApp' },
+];
 
 export function Footer() {
   return (
@@ -69,6 +78,22 @@ export function Footer() {
                   software · aprendizaje jurídico · crítica algorítmica
                 </div>
               </div>
+            </div>
+
+            {/* Social icons */}
+            <div className="flex items-center gap-2">
+              {SOCIALS.map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={href.startsWith('http') ? '_blank' : undefined}
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-9 h-9 rounded-lg border border-[var(--line-soft)] bg-white/[0.02] flex items-center justify-center text-zinc-500 hover:text-[oklch(0.84_0.11_205)] hover:border-[oklch(0.78_0.13_205/0.4)] transition-all"
+                >
+                  <Icon className="w-4 h-4" strokeWidth={1.8} />
+                </a>
+              ))}
             </div>
 
             {/* Status line */}

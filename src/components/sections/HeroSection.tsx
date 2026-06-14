@@ -129,7 +129,7 @@ export function HeroSection() {
             </span>
             <span>Lcdo. Cs. Jurídicas PUCV</span>
             <span className="text-zinc-700">/</span>
-            <span className="hidden sm:inline">Ayudante Filosofía del Derecho · 4 años</span>
+            <span className="hidden sm:inline">Director Operativo · Programa DIAT</span>
             <span className="text-zinc-700 hidden sm:inline">/</span>
             <span className="inline-flex items-center gap-1.5">
               <DiogenesLamp className="w-3 h-3 lab-accent" />

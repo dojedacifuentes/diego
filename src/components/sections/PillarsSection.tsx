@@ -18,7 +18,7 @@ const PILLARS = [
     icon: GraduationCap,
     title: 'Enseñar',
     desc: 'Ayudantías, talleres de prompting, divulgación académica, formación jurídica.',
-    items: ['4 años · Filosofía del Derecho PUCV', 'Talleres de IA aplicada al derecho', 'Dirección operativa DIAT'],
+    items: ['Ayudante Filosofía del Derecho', 'Director Operativo · DIAT (desde 2020)', 'Ayudante de investigación · 2 talleres'],
     accent: 'text-[oklch(0.82_0.12_205)]',
     border: 'hover:border-[oklch(0.78_0.13_205/0.45)]',
   },

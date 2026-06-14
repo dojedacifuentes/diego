@@ -11,6 +11,7 @@ const statusColors: Record<string, string> = {
   'Prototipo': 'text-[oklch(0.8_0.13_75)] border-[oklch(0.78_0.14_75/0.3)] bg-[oklch(0.78_0.14_75/0.07)]',
   'Plataforma activa': 'text-[oklch(0.82_0.12_205)] border-[oklch(0.78_0.13_205/0.3)] bg-[oklch(0.78_0.13_205/0.07)]',
   'En desarrollo': 'text-[oklch(0.72_0.16_285)] border-[oklch(0.62_0.19_285/0.35)] bg-[oklch(0.62_0.19_285/0.08)]',
+  'Programa académico': 'text-[oklch(0.74_0.15_285)] border-[oklch(0.62_0.19_285/0.35)] bg-[oklch(0.62_0.19_285/0.08)]',
   'Repositorio': 'text-zinc-400 border-[var(--line-mid)] bg-white/[0.02]',
 };
 
@@ -18,6 +19,7 @@ type MockVariant = 'dashboard' | 'cards' | 'doc' | 'game';
 
 const VARIANT_BY_CATEGORY: Partial<Record<ProjectCategory, MockVariant>> = {
   'Legaltech': 'dashboard',
+  'DIAT · Academia': 'doc',
   'Talleres y IA': 'doc',
   'Pymes': 'cards',
   'Apps personalizadas': 'cards',
@@ -25,7 +27,6 @@ const VARIANT_BY_CATEGORY: Partial<Record<ProjectCategory, MockVariant>> = {
   'Administrativo y Público': 'doc',
   'Herramientas de estudio': 'cards',
   'Examen de Grado': 'game',
-  'Derecho Civil': 'doc',
   'IA y prompting': 'dashboard',
 };
 

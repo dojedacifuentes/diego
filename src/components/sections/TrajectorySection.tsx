@@ -1,7 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import {
-  BookOpen, Scale, Users, Eye, Compass, Presentation, FlaskConical,
+  BookOpen, Scale, Users, Eye, Compass, Presentation, FlaskConical, ArrowUpRight,
 } from 'lucide-react';
 import { SectionHeader } from '@/components/common/SectionHeader';
 
@@ -21,32 +21,42 @@ const MILESTONES = [
     desc: 'Formación jurídica completa, con foco creciente en derecho público y tecnología.',
   },
   {
-    icon: Users,
-    tag: 'DOCENCIA · 4 AÑOS',
-    title: 'Ayudante de Filosofía del Derecho',
-    place: 'Facultad de Derecho PUCV',
-    desc: 'Cuatro años acompañando la formación de estudiantes en teoría y filosofía jurídica.',
-  },
-  {
     icon: Eye,
-    tag: 'INVESTIGACIÓN',
+    tag: '2020 · INVESTIGACIÓN',
     title: 'Tesis en transparencia algorítmica',
-    place: 'Licenciatura PUCV',
-    desc: 'Sistemas automatizados, derecho público y rendición de cuentas: cómo se audita el poder que decide por algoritmo.',
+    place: 'Guía: prof. Bravo · caso SyRI (Países Bajos)',
+    desc: 'IA aplicada al derecho y derecho aplicado a la IA: cómo se audita un sistema que perfila personas para predecir riesgo de fraude social.',
   },
   {
     icon: Compass,
-    tag: 'GESTIÓN',
-    title: 'Director Operativo · Programa DIAT',
-    place: 'Derecho, IA y Tecnología — PUCV',
-    desc: 'Dirección operativa del programa; organización y gestión de eventos de divulgación académica, investigación e IA aplicada al derecho.',
+    tag: 'DESDE 2020 · DIAT',
+    title: 'Ingreso al Programa DIAT PUCV',
+    place: 'Derecho, Inteligencia Artificial y Tecnología',
+    desc: 'Inicio en el programa DIAT, liderando desde entonces distintos proyectos de divulgación, investigación e IA aplicada al derecho.',
+    href: 'https://diatpucv.cl/',
+  },
+  {
+    icon: Users,
+    tag: 'DOCENCIA',
+    title: 'Ayudante de Filosofía del Derecho e investigación',
+    place: 'Facultad de Derecho PUCV',
+    desc: 'Ayudantía de Filosofía del Derecho y ayudantía de investigación, acompañando la formación de estudiantes y líneas de trabajo del programa.',
   },
   {
     icon: Presentation,
-    tag: 'FORMACIÓN · EN CURSO',
-    title: 'Talleres de Prompting e IA aplicada al Derecho',
-    place: '2 ediciones · co-director edición 2026',
-    desc: 'IA aplicada al estudio y ejercicio del derecho: prompting estructurado, flujos multi-IA y verificación jurídica.',
+    tag: '2023 · CODIRECCIÓN',
+    title: 'Taller de IA Jurídica Aplicada · DIAT',
+    place: 'Codirector y encargado del taller · co-financiado por Vinculación con el Medio PUCV',
+    desc: 'Segunda edición del taller. Dos ediciones lideradas y diseñadas por mí. Cobertura institucional de la PUCV.',
+    href: 'https://www.pucv.cl/uuaa/derecho-pucv/noticias/tecnologia-juridica-en-accion-programa-diat-pucv-integra-la',
+  },
+  {
+    icon: Compass,
+    tag: 'GESTIÓN · ACTUAL',
+    title: 'Subdirector de proyectos y Director Operativo · DIAT',
+    place: 'Programa DIAT — PUCV',
+    desc: 'Dirección operativa del programa: Conversaciones DIAT (expertos internacionales), Noticias en un Bit y proyectos de IA aplicada al derecho.',
+    href: 'https://diatpucv.cl/',
   },
   {
     icon: FlaskConical,
@@ -92,7 +102,7 @@ export function TrajectorySection() {
           />
 
           <div className="space-y-5">
-            {MILESTONES.map(({ icon: Icon, tag, title, place, desc }, i) => (
+            {MILESTONES.map(({ icon: Icon, tag, title, place, desc, href }, i) => (
               <motion.div
                 key={title}
                 initial={{ opacity: 0, y: 18 }}
@@ -121,6 +131,16 @@ export function TrajectorySection() {
                   <h3 className="text-[15px] font-bold text-white mt-2.5 tracking-tight">{title}</h3>
                   <div className="text-[12px] text-[oklch(0.78_0.1_205)] mt-0.5 mono">{place}</div>
                   <p className="text-[12.5px] text-zinc-500 mt-2 leading-relaxed">{desc}</p>
+                  {href && (
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-[11.5px] mono text-[oklch(0.78_0.1_205)] hover:text-[oklch(0.86_0.09_205)] transition-colors mt-3 glitch-hover"
+                    >
+                      ver más <ArrowUpRight className="w-3 h-3" />
+                    </a>
+                  )}
                 </div>
               </motion.div>
             ))}

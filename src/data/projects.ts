@@ -3,15 +3,16 @@ export type ProjectStatus =
   | 'Prototipo'
   | 'Plataforma activa'
   | 'En desarrollo'
+  | 'Programa académico'
   | 'Repositorio';
 
 export type ProjectCategory =
   | 'Todos'
   | 'Legaltech'
+  | 'DIAT · Academia'
   | 'Herramientas de estudio'
   | 'Examen de Grado'
   | 'RPG jurídico'
-  | 'Derecho Civil'
   | 'Administrativo y Público'
   | 'Talleres y IA'
   | 'Apps personalizadas'
@@ -34,12 +35,12 @@ export interface Project {
 export const CATEGORIES: ProjectCategory[] = [
   'Todos',
   'Legaltech',
+  'DIAT · Academia',
+  'Talleres y IA',
   'Herramientas de estudio',
   'Examen de Grado',
   'RPG jurídico',
-  'Derecho Civil',
   'Administrativo y Público',
-  'Talleres y IA',
   'Apps personalizadas',
   'Pymes',
   'IA y prompting',
@@ -47,13 +48,28 @@ export const CATEGORIES: ProjectCategory[] = [
 
 export const projects: Project[] = [
   {
+    title: 'diegoojeda.cl · Diógenes Lab',
+    category: 'Legaltech',
+    description:
+      'Esta plataforma. Sitio personal y portafolio con estética legaltech: panel de diagnóstico IA, simulador de ROI, command palette ⌘K, animaciones y SEO técnico. Diseñado y construido de extremo a extremo.',
+    problem:
+      'Reunir investigación, docencia y desarrollo en una carta de presentación profesional, técnica y desplegable.',
+    tags: ['Next.js 16', 'TypeScript', 'Tailwind v4', 'Framer Motion', 'Vercel'],
+    status: 'Plataforma activa',
+    demoUrl: 'https://diegoojeda.cl',
+    repoUrl: 'https://github.com/dojedacifuentes/diego',
+    featured: true,
+    caseNote:
+      'Demuestra diseño de producto end-to-end: arquitectura, motion design, accesibilidad y despliegue.',
+  },
+  {
     title: 'DIAT Prompting Hub',
     category: 'Talleres y IA',
     description:
-      'Plataforma académica completa para taller de IA jurídica: módulos, generador de prompts LexPrompt, flashcards, toolkit IA y dossier exportable en PDF.',
+      'Plataforma académica completa para el taller de IA jurídica: módulos, generador de prompts LexPrompt, flashcards, toolkit IA y dossier exportable en PDF.',
     problem:
       'Organizar contenidos, módulos, herramientas y experiencia formativa en una plataforma académica aplicada.',
-    tags: ['IA jurídica', 'Talleres', 'Prompting', 'Next.js 16', 'Legaltech'],
+    tags: ['IA jurídica', 'Prompting', 'Next.js 16', 'jsPDF', 'Legaltech'],
     status: 'Demo funcional',
     demoUrl: 'https://taller-diat.vercel.app',
     featured: true,
@@ -61,29 +77,45 @@ export const projects: Project[] = [
       'Demuestra diseño de plataformas formativas, organización modular y experiencia académica aplicada.',
   },
   {
-    title: 'Solergy',
-    category: 'Pymes',
+    title: 'Taller de IA Jurídica Aplicada · DIAT 2023',
+    category: 'DIAT · Academia',
     description:
-      'Landing comercial inteligente para empresa de energía solar: simulador de ahorro, captación de leads, panel de gestión y analytics.',
+      'Programa de tecnología jurídica del DIAT PUCV. Participé como codirector y ayudante de investigación encargado del taller. Segunda edición, co-financiada por la Vicerrectoría de Vinculación con el Medio PUCV.',
     problem:
-      'Captación de clientes, simulación de ahorro energético y gestión de leads para empresa comercial.',
-    tags: ['Landing comercial', 'Simulador', 'Leads', 'Pymes', 'Next.js 16'],
-    status: 'Demo funcional',
-    featured: true,
-    caseNote: 'Demuestra landing comercial con simulador de ahorro y captación de leads.',
-  },
-  {
-    title: 'Dr. Gabriel Mena',
-    category: 'Apps personalizadas',
-    description:
-      'Plataforma clínica para médico especialista en salud mental: perfil público, panel de pacientes, notas SOAP, citas y seguimiento emocional con visualización de datos.',
-    problem:
-      'Gestión integral de pacientes, citas, notas clínicas y seguimiento para profesional de salud.',
-    tags: ['App médica', 'Dashboard clínico', 'Salud', 'Profesional independiente'],
-    status: 'Prototipo',
+      'Formar a estudiantes y profesionales del Derecho en IA aplicada con casos reales y flujos verificables.',
+    tags: ['IA jurídica', 'Docencia', 'Codirección', 'PUCV', 'Vinculación con el Medio'],
+    status: 'Programa académico',
+    demoUrl:
+      'https://www.pucv.cl/uuaa/derecho-pucv/noticias/tecnologia-juridica-en-accion-programa-diat-pucv-integra-la',
     featured: true,
     caseNote:
-      'Demuestra adaptación de dashboards profesionales a contextos de salud y seguimiento clínico.',
+      'Cobertura institucional PUCV. Dos ediciones del taller lideradas y diseñadas por mí.',
+  },
+  {
+    title: 'Conversaciones DIAT',
+    category: 'DIAT · Academia',
+    description:
+      'Ciclo de charlas donde expertos internacionales exponen en la Sala Quinto Centenario para la Escuela de Derecho y público interesado. Organización y gestión académica.',
+    problem:
+      'Acercar el debate global sobre Derecho, IA y tecnología a la comunidad universitaria.',
+    tags: ['Divulgación', 'Eventos', 'Expertos internacionales', 'PUCV'],
+    status: 'Programa académico',
+    demoUrl: 'https://diatpucv.cl/',
+    caseNote:
+      'Demuestra gestión de eventos académicos interdisciplinarios de alcance internacional.',
+  },
+  {
+    title: 'Noticias en un Bit',
+    category: 'DIAT · Academia',
+    description:
+      'Cápsulas breves de noticias sobre inteligencia artificial producidas para el programa DIAT PUCV: divulgación clara y periódica del avance de la IA y su impacto jurídico.',
+    problem:
+      'Mantener a la comunidad informada sobre IA con un formato corto, riguroso y constante.',
+    tags: ['Divulgación', 'IA', 'Contenido', 'PUCV'],
+    status: 'Programa académico',
+    demoUrl: 'https://diatpucv.cl/',
+    caseNote:
+      'Demuestra comunicación técnica accesible y producción de contenido de divulgación.',
   },
   {
     title: 'Marea — Workspace Jurídico',
@@ -92,9 +124,8 @@ export const projects: Project[] = [
       'App personalizada para abogada académica: gestión de interrogaciones, magíster, flashcards jurídicas, tareas, biblioteca normativa, modo focus y sistema de recompensas.',
     problem:
       'Centralizar herramientas académicas y jurídicas en un espacio digital funcional, accesible y personalizado.',
-    tags: ['App jurídica', 'Abogada', 'Workspace', 'React + Vite', 'Legaltech'],
+    tags: ['App jurídica', 'Workspace', 'React + Vite', 'Legaltech'],
     status: 'Demo funcional',
-    featured: true,
     caseNote:
       'Demuestra personalización de herramientas jurídicas para flujos reales de trabajo académico.',
   },
@@ -102,10 +133,10 @@ export const projects: Project[] = [
     title: 'Lex RPG — Código Civil y CPC',
     category: 'RPG jurídico',
     description:
-      'RPG educativo para memorizar y aplicar artículos del Código Civil y Código de Procedimiento Civil mediante combates cognitivos, mundos jurídicos y mecánicas de avance por nivel.',
+      'RPG educativo para memorizar y aplicar artículos del Código Civil y de Procedimiento Civil mediante combates cognitivos, mundos jurídicos y avance por nivel.',
     problem:
       'Memorizar artículos jurídicos de forma activa y significativa para el examen de grado.',
-    tags: ['RPG', 'Gamificación', 'Código Civil', 'CPC', 'Examen de Grado'],
+    tags: ['RPG', 'Gamificación', 'Código Civil', 'Examen de Grado'],
     status: 'Prototipo',
     caseNote:
       'Demuestra gamificación del aprendizaje jurídico con sistemas interactivos de memoria activa.',
@@ -117,19 +148,42 @@ export const projects: Project[] = [
       'Plataforma académica para el estudio de Derecho Administrativo: control de la actividad pública, procedimientos, potestad sancionadora, casos y sistematización normativa.',
     problem:
       'Organizar y estudiar materias complejas de Derecho Administrativo de forma estructurada.',
-    tags: ['Derecho Administrativo', 'Control público', 'Educación jurídica', 'Next.js 16'],
+    tags: ['Derecho Administrativo', 'Educación jurídica', 'Next.js 16'],
     status: 'Prototipo',
     caseNote:
       'Demuestra transformación de contenidos académicos complejos en experiencias digitales.',
   },
   {
+    title: 'Dr. Gabriel Mena',
+    category: 'Apps personalizadas',
+    description:
+      'Plataforma clínica para médico especialista en salud mental: perfil público, panel de pacientes, notas SOAP, citas y seguimiento con visualización de datos.',
+    problem:
+      'Gestión integral de pacientes, citas, notas clínicas y seguimiento para profesional de salud.',
+    tags: ['App médica', 'Dashboard clínico', 'Salud'],
+    status: 'Prototipo',
+    caseNote:
+      'Demuestra adaptación de dashboards profesionales a contextos de salud y seguimiento clínico.',
+  },
+  {
+    title: 'Solergy',
+    category: 'Pymes',
+    description:
+      'Landing comercial inteligente para empresa de energía solar: simulador de ahorro, captación de leads, panel de gestión y analytics.',
+    problem:
+      'Captación de clientes, simulación de ahorro energético y gestión de leads para empresa comercial.',
+    tags: ['Landing comercial', 'Simulador', 'Leads', 'Next.js 16'],
+    status: 'Demo funcional',
+    caseNote: 'Demuestra landing comercial con simulador de ahorro y captación de leads.',
+  },
+  {
     title: 'El Jardín de Mónica',
     category: 'Apps personalizadas',
     description:
-      'App web personal diseñada como jardín vivo y refugio cultural: notas, biblioteca, perros, música, memoria emocional y espacio de bienestar digital.',
+      'App web personal diseñada como jardín vivo y refugio cultural: notas, biblioteca, música, memoria emocional y espacio de bienestar digital.',
     problem:
       'Crear un espacio digital accesible, personalizado y emocional para usuario adulto no técnico.',
-    tags: ['App personal', 'React + Vite', 'Accesibilidad', 'Digital garden'],
+    tags: ['App personal', 'React + Vite', 'Accesibilidad'],
     status: 'Demo funcional',
     caseNote:
       'Demuestra diseño accesible y personalización profunda para usuarios no técnicos.',

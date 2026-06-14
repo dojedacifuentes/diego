@@ -1,16 +1,31 @@
 'use client';
 import { motion } from 'framer-motion';
-import { Box, Landmark, FileSearch, ScrollText, ShieldQuestion, Cpu } from 'lucide-react';
+import {
+  Box, Landmark, FileSearch, ScrollText, ShieldQuestion, Cpu,
+  FileText, ArrowUpRight, Scale, GitBranch,
+} from 'lucide-react';
 import { SectionHeader } from '@/components/common/SectionHeader';
 import { DiogenesLamp } from '@/components/common/DiogenesLamp';
+
+// Pega aquí los enlaces cuando los tengas (quedan ocultos si están vacíos):
+const THESIS_URL = '';   // link a la tesis / publicación
+const PAPERS_URL = '';   // link a papers en los que colaboré
+const LINKEDIN_URL = 'https://www.linkedin.com/in/diegoojedac/';
 
 const RESEARCH_LINES = [
   { icon: Cpu, label: 'Transparencia algorítmica' },
   { icon: Landmark, label: 'IA y derecho público' },
-  { icon: ScrollText, label: 'Regulación de sistemas automatizados' },
+  { icon: ScrollText, label: 'RGPD y regulación de sistemas automatizados' },
   { icon: ShieldQuestion, label: 'Rendición de cuentas' },
   { icon: FileSearch, label: 'Explicabilidad y debido proceso' },
   { icon: Box, label: 'Filosofía del derecho y tecnología' },
+];
+
+const THESIS_POINTS = [
+  { icon: Scale, label: 'Caso SyRI · Países Bajos', desc: 'Análisis de un instrumento únicamente automatizado que perfilaba personas para predecir riesgo de fraude a la seguridad social.' },
+  { icon: GitBranch, label: 'Niveles de transparencia', desc: 'Distinguir niveles según públicos objetivos y el contenido concreto de la transparencia exigible.' },
+  { icon: ScrollText, label: 'Articulación con el RGPD (UE)', desc: 'Encaje del derecho a la transparencia con el Reglamento General de Protección de Datos europeo.' },
+  { icon: ShieldQuestion, label: 'Opacidad estratégica vs. transparencia', desc: 'Soluciones socio-técnicas para conciliar valores en tensión: secreto legítimo frente a la transparencia como derecho.' },
 ];
 
 /* Caja negra → lámpara → caja de cristal */
@@ -122,11 +137,61 @@ export function ResearchSection() {
           index="03"
           eyebrow="Investigación · Archivo"
           title={<>Abrir la <em className="serif-italic text-gradient-tech">caja negra</em> del poder algorítmico.</>}
-          sub="Mi tesis de licenciatura investiga la transparencia algorítmica: qué exige el derecho cuando las decisiones que afectan a personas las toma —o las prepara— un sistema automatizado."
+          sub="Mi tesis de licenciatura (2020, bajo la guía del profesor Bravo) investiga la transparencia algorítmica con un doble enfoque: IA aplicada al derecho y derecho aplicado a la IA."
           accent="violet"
         />
 
         <TransparencyDiagram />
+
+        {/* Thesis detail + documents */}
+        <div className="panel-deep rounded-2xl p-6 sm:p-8 space-y-6">
+          <div className="flex items-center gap-2">
+            <FileText className="w-3.5 h-3.5 text-[oklch(0.72_0.16_285)]" />
+            <span className="eyebrow text-zinc-500">Tesis · enfoque y aportes</span>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-3">
+            {THESIS_POINTS.map(({ icon: Icon, label, desc }, i) => (
+              <motion.div
+                key={label}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-30px' }}
+                transition={{ delay: (i % 2) * 0.08, duration: 0.4 }}
+                className="rounded-xl border border-[var(--line-soft)] bg-white/[0.02] p-4 flex gap-3"
+              >
+                <div className="w-8 h-8 rounded-lg border border-[oklch(0.62_0.19_285/0.3)] bg-[oklch(0.62_0.19_285/0.07)] flex items-center justify-center shrink-0">
+                  <Icon className="w-4 h-4 text-[oklch(0.72_0.16_285)]" strokeWidth={1.7} />
+                </div>
+                <div>
+                  <div className="text-[13px] font-semibold text-zinc-100 leading-snug">{label}</div>
+                  <p className="text-[12px] text-zinc-500 leading-relaxed mt-1">{desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Document links */}
+          <div className="flex flex-wrap gap-2.5 border-t border-[var(--line-soft)] pt-5">
+            {THESIS_URL ? (
+              <a href={THESIS_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost-cyan text-[13px]!">
+                <FileText className="w-4 h-4" /> Ver tesis / publicación <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+            ) : (
+              <span className="badge-tech text-zinc-600">Tesis · enlace próximamente</span>
+            )}
+            {PAPERS_URL ? (
+              <a href={PAPERS_URL} target="_blank" rel="noopener noreferrer" className="btn-secondary text-[13px]!">
+                <ScrollText className="w-4 h-4" /> Papers en los que colaboré <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+            ) : (
+              <span className="badge-tech text-zinc-600">Papers · enlace próximamente</span>
+            )}
+            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="btn-secondary text-[13px]!">
+              Perfil académico · LinkedIn <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </div>
 
         {/* Research lines */}
         <div className="space-y-4">
