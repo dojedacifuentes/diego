@@ -37,6 +37,9 @@ export function HeroSection() {
         aria-hidden
       />
 
+      {/* Slow scan line traversing the hero (single, restrained) */}
+      <div className="scan-line" aria-hidden />
+
       {/* Local spotlight */}
       <div
         className="absolute inset-0 pointer-events-none"

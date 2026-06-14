@@ -5,6 +5,7 @@ import { GridBackground } from '@/components/common/GridBackground';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { CommandPalette } from '@/components/common/CommandPalette';
+import { CursorFX } from '@/components/common/CursorFX';
 import { ScrollProgress } from '@/components/common/ScrollProgress';
 import { ClientProviders } from '@/components/common/ClientProviders';
 
@@ -87,6 +88,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
         <GridBackground />
+        <CursorFX />
         <ScrollProgress />
         <ClientProviders>
           <div className="relative z-10">
