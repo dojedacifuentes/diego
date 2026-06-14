@@ -38,9 +38,15 @@ export function SectionHeader({
         <span className="h-px w-8 bg-[var(--line-strong)]" />
         <span className="eyebrow text-zinc-500">{eyebrow}</span>
       </div>
-      <h2 className="serif text-3xl sm:text-4xl lg:text-[2.75rem] font-semibold leading-[1.12] tracking-tight text-gradient-light">
+      <motion.h2
+        initial={{ opacity: 0, y: 12, filter: 'blur(8px)' }}
+        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="serif text-3xl sm:text-4xl lg:text-[2.75rem] font-semibold leading-[1.12] tracking-tight text-gradient-light"
+      >
         {title}
-      </h2>
+      </motion.h2>
       {sub && (
         <p className={`text-[15px] text-zinc-400 leading-relaxed max-w-2xl ${centered ? 'mx-auto' : ''}`}>
           {sub}

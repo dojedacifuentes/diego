@@ -4,6 +4,7 @@ import { ExternalLink, Code2, Star, ScanLine, Calculator, ArrowUpRight } from 'l
 import { projects, type ProjectCategory } from '@/data/projects';
 import { SectionHeader } from '@/components/common/SectionHeader';
 import { DiogenesLamp } from '@/components/common/DiogenesLamp';
+import { TiltCard } from '@/components/common/TiltCard';
 
 const statusColors: Record<string, string> = {
   'Demo funcional': 'text-[oklch(0.78_0.13_162)] border-[oklch(0.74_0.14_165/0.3)] bg-[oklch(0.74_0.14_165/0.07)]',
@@ -164,8 +165,8 @@ export function PortfolioSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.45, delay: (i % 3) * 0.08 }}
-                className="group panel rounded-2xl p-4 space-y-4 card-surface-hover hover-lift flex flex-col"
               >
+              <TiltCard className="group panel rounded-2xl p-4 space-y-4 card-surface-hover flex flex-col h-full">
                 <MiniMock variant={VARIANT_BY_CATEGORY[p.category] ?? 'dashboard'} />
 
                 {/* Meta row */}
@@ -230,6 +231,7 @@ export function PortfolioSection() {
                     )}
                   </div>
                 )}
+              </TiltCard>
               </motion.div>
             ))}
         </div>
