@@ -95,8 +95,8 @@ export function TrajectorySection() {
             {MILESTONES.map(({ icon: Icon, tag, title, place, desc }, i) => (
               <motion.div
                 key={title}
-                initial={{ opacity: 0, x: -18 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ delay: i * 0.06, duration: 0.5 }}
                 className="relative flex gap-5 sm:gap-7 group"

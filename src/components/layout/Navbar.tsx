@@ -29,6 +29,7 @@ function LogoMark() {
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
   const router = useRouter();
   const pathname = usePathname();
 
@@ -37,6 +38,29 @@ export function Navbar() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  // Scroll-spy: highlight the section currently in view (home only)
+  useEffect(() => {
+    if (pathname !== '/') {
+      setActiveSection('');
+      return;
+    }
+    const ids = ['perfil', 'lab', 'investigacion', 'trayectoria', 'contacto'];
+    const els = ids
+      .map(id => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+    const obs = new IntersectionObserver(
+      entries => {
+        const visible = entries
+          .filter(e => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActiveSection(visible.target.id);
+      },
+      { rootMargin: '-45% 0px -50% 0px', threshold: [0, 0.25, 0.5, 1] },
+    );
+    els.forEach(el => obs.observe(el));
+    return () => obs.disconnect();
+  }, [pathname]);
 
   useEffect(() => {
     if (menuOpen) document.body.style.overflow = 'hidden';
@@ -97,18 +121,28 @@ export function Navbar() {
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-0.5 px-1.5 py-1.5 rounded-xl border border-[var(--line-soft)] bg-[oklch(0.13_0.022_255/0.5)] backdrop-blur-md">
             {navItems.map(({ href, label, type }) => {
-              const isActive = type === 'route' && pathname === href;
+              const isActive =
+                type === 'route'
+                  ? pathname === href
+                  : pathname === '/' && activeSection === href.replace('#', '');
               return (
                 <button
                   key={href}
                   onClick={() => handleNav(href, type)}
-                  className={`px-3 py-1.5 text-[12.5px] rounded-lg transition-all ${
+                  className={`relative px-3 py-1.5 text-[12.5px] rounded-lg transition-all ${
                     isActive
                       ? 'text-[oklch(0.84_0.11_205)] bg-[oklch(0.78_0.13_205/0.1)]'
                       : 'text-zinc-400 hover:text-zinc-100 hover:bg-white/[0.05]'
                   }`}
                 >
                   {label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-active"
+                      className="absolute -bottom-px left-2 right-2 h-px bg-[oklch(0.82_0.12_205)]"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
                 </button>
               );
             })}
