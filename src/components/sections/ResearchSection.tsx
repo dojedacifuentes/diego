@@ -7,10 +7,29 @@ import {
 import { SectionHeader } from '@/components/common/SectionHeader';
 import { DiogenesLamp } from '@/components/common/DiogenesLamp';
 
-// Pega aquí los enlaces cuando los tengas (quedan ocultos si están vacíos):
-const THESIS_URL = '';   // link a la tesis / publicación
-const PAPERS_URL = '';   // link a papers en los que colaboré
 const LINKEDIN_URL = 'https://www.linkedin.com/in/diegoojedac/';
+
+// Publicaciones y trabajos de investigación
+const PUBLICATIONS = [
+  {
+    title: 'Transparencia algorítmica',
+    venue: 'Revista Ius Novum',
+    role: 'Autor · tesis y publicación',
+    url: 'https://www.revistaiusnovum.cl/index.php/REIN/article/view/158',
+  },
+  {
+    title: 'Investigación con algoritmo ético como instrumento de prueba',
+    venue: 'Rev. Pedagogía Universitaria y Didáctica del Derecho · U. de Chile',
+    role: 'Ayudante de investigación · diseñé el algoritmo ético utilizado',
+    url: 'https://pedagogiaderecho.uchile.cl/index.php/RPUD/article/view/73547',
+  },
+  {
+    title: 'Mención en agradecimientos',
+    venue: 'Rev. Pedagogía Universitaria y Didáctica del Derecho · U. de Chile',
+    role: 'Colaboración reconocida',
+    url: 'https://pedagogiaderecho.uchile.cl/index.php/RPUD/article/view/69639/76701',
+  },
+];
 
 const RESEARCH_LINES = [
   { icon: Cpu, label: 'Transparencia algorítmica' },
@@ -171,23 +190,33 @@ export function ResearchSection() {
             ))}
           </div>
 
-          {/* Document links */}
-          <div className="flex flex-wrap gap-2.5 border-t border-[var(--line-soft)] pt-5">
-            {THESIS_URL ? (
-              <a href={THESIS_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost-cyan text-[13px]!">
-                <FileText className="w-4 h-4" /> Ver tesis / publicación <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
-            ) : (
-              <span className="badge-tech text-zinc-600">Tesis · enlace próximamente</span>
-            )}
-            {PAPERS_URL ? (
-              <a href={PAPERS_URL} target="_blank" rel="noopener noreferrer" className="btn-secondary text-[13px]!">
-                <ScrollText className="w-4 h-4" /> Papers en los que colaboré <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
-            ) : (
-              <span className="badge-tech text-zinc-600">Papers · enlace próximamente</span>
-            )}
-            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="btn-secondary text-[13px]!">
+          {/* Publications */}
+          <div className="border-t border-[var(--line-soft)] pt-5 space-y-2.5">
+            <div className="eyebrow text-zinc-600">Publicaciones y trabajos de investigación</div>
+            {PUBLICATIONS.map((pub, i) => (
+              <motion.a
+                key={pub.url}
+                href={pub.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-30px' }}
+                transition={{ delay: i * 0.07, duration: 0.4 }}
+                className="group flex items-center gap-3.5 rounded-xl border border-[var(--line-soft)] bg-white/[0.02] px-4 py-3.5 card-surface-hover"
+              >
+                <div className="w-9 h-9 rounded-lg border border-[oklch(0.62_0.19_285/0.3)] bg-[oklch(0.62_0.19_285/0.07)] flex items-center justify-center shrink-0">
+                  <FileText className="w-4 h-4 text-[oklch(0.72_0.16_285)]" strokeWidth={1.7} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[13px] font-semibold text-zinc-100 leading-snug group-hover:text-white transition-colors">{pub.title}</div>
+                  <div className="text-[11px] text-zinc-500 mt-0.5">{pub.venue}</div>
+                  <div className="text-[11px] mono text-[oklch(0.74_0.15_285)] mt-1">{pub.role}</div>
+                </div>
+                <ArrowUpRight className="w-4 h-4 text-zinc-600 group-hover:text-[oklch(0.74_0.15_285)] transition-colors shrink-0" />
+              </motion.a>
+            ))}
+            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="btn-secondary text-[13px]! mt-1">
               Perfil académico · LinkedIn <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
           </div>
