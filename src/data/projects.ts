@@ -111,15 +111,16 @@ export const projects: Project[] = [
     title: 'Umbral — Comprensión lectora jurídica',
     category: 'Herramientas de estudio',
     description:
-      'Plataforma para entrenar la comprensión lectora jurídica de primer año de Derecho: Archivo, Laboratorio, Arena y Taller, con estética de terminal oscura y feedback sonoro.',
+      'Plataforma de entrenamiento interpretativo para primer año de Derecho, con 4 modos —El Archivo (40 textos), El Laboratorio (misiones), La Arena (boss) y el Taller—, lector con modo enfoque, sonidos sintetizados y panel docente. Pensada como demo institucional.',
     problem:
-      'Entrenar la lectura y comprensión de textos jurídicos densos desde el inicio de la carrera.',
-    tags: ['EdTech jurídica', 'Comprensión lectora', 'Next.js', 'Estudio'],
+      'Diagnosticar y mejorar la comprensión lectora jurídica desde el inicio de la carrera: leer mejor para pensar mejor.',
+    tags: ['EdTech jurídica', 'Next.js 16', 'Tailwind v4', 'Recharts', 'Estudio'],
     status: 'Demo funcional',
     demoUrl: 'https://umbral-tau.vercel.app',
     repoUrl: 'https://github.com/dojedacifuentes/umbral',
+    featured: true,
     caseNote:
-      'Demuestra diseño de experiencias de estudio inmersivas para formación jurídica temprana.',
+      'MVP demostrativo presentable a una Escuela de Derecho: 40 textos, misiones, panel docente y piloto de 4 semanas.',
   },
   {
     title: 'Conversaciones DIAT',
@@ -179,15 +180,16 @@ export const projects: Project[] = [
     title: 'Lex RPG — Examen de Grado',
     category: 'RPG jurídico',
     description:
-      'RPG educativo para preparar el examen de grado: modo "Cascada Jurídica" contrarreloj, combates cognitivos, mundos jurídicos y avance por nivel sobre Civil y Procesal.',
+      'RPG narrativo del Examen de Grado chileno (Civil · Procesal · Público). Incluye la expansión "Reinos del Derecho": overworld de 7 regiones con bosses, vidas, desafíos y una biblioteca de artículos legendarios coleccionables. Audio 100% sintetizado, sin archivos.',
     problem:
       'Memorizar y aplicar materia jurídica de forma activa y significativa para el examen de grado.',
-    tags: ['RPG', 'Gamificación', 'Examen de Grado', 'Procesal', 'Civil'],
+    tags: ['RPG', 'Next.js', 'Zustand', 'Examen de Grado', 'Gamificación'],
     status: 'Demo funcional',
     demoUrl: 'https://rpgproce.vercel.app',
     repoUrl: 'https://github.com/dojedacifuentes/rpgproce',
+    featured: true,
     caseNote:
-      'Demuestra gamificación del aprendizaje jurídico con sistemas interactivos de memoria activa.',
+      'El proyecto más extenso: 7 regiones, 34 artículos y 52 desafíos. Sistema de save, audio sintetizado y arquitectura de expansión aislada.',
   },
   {
     title: 'Sucesorio — Casos avanzados',
