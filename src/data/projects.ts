@@ -130,16 +130,43 @@ export const projects: Project[] = [
       'Demuestra personalización de herramientas jurídicas para flujos reales de trabajo académico.',
   },
   {
-    title: 'Lex RPG — Código Civil y CPC',
+    title: 'Lex RPG — Examen de Grado',
     category: 'RPG jurídico',
     description:
-      'RPG educativo para memorizar y aplicar artículos del Código Civil y de Procedimiento Civil mediante combates cognitivos, mundos jurídicos y avance por nivel.',
+      'RPG educativo para preparar el examen de grado: modo "Cascada Jurídica" contrarreloj, combates cognitivos, mundos jurídicos y avance por nivel sobre Civil y Procesal.',
     problem:
-      'Memorizar artículos jurídicos de forma activa y significativa para el examen de grado.',
-    tags: ['RPG', 'Gamificación', 'Código Civil', 'Examen de Grado'],
-    status: 'Prototipo',
+      'Memorizar y aplicar materia jurídica de forma activa y significativa para el examen de grado.',
+    tags: ['RPG', 'Gamificación', 'Examen de Grado', 'Procesal', 'Civil'],
+    status: 'Demo funcional',
+    demoUrl: 'https://rpgproce.vercel.app',
     caseNote:
       'Demuestra gamificación del aprendizaje jurídico con sistemas interactivos de memoria activa.',
+  },
+  {
+    title: 'Sucesorio — Casos avanzados',
+    category: 'Herramientas de estudio',
+    description:
+      'Plataforma de estudio de Derecho Sucesorio: casos avanzados, resolución guiada y sistematización de la materia para el examen de grado.',
+    problem:
+      'Practicar Derecho Sucesorio con casos reales y progresión, no solo lectura pasiva.',
+    tags: ['Derecho Sucesorio', 'Casos', 'Examen de Grado', 'Estudio'],
+    status: 'Demo funcional',
+    demoUrl: 'https://sucesorio.vercel.app',
+    caseNote:
+      'Demuestra conversión de materia jurídica densa en práctica de casos progresiva.',
+  },
+  {
+    title: 'SonicPC — Quizzes relámpago',
+    category: 'Herramientas de estudio',
+    description:
+      'Juego de quizzes rápidos para estudiar de forma activa: preguntas relámpago, ritmo y repetición espaciada para fijar conceptos.',
+    problem:
+      'Repasar materia de forma ágil y entretenida, midiendo avance en tiempo real.',
+    tags: ['Quizzes', 'Gamificación', 'Estudio', 'Spaced repetition'],
+    status: 'Demo funcional',
+    demoUrl: 'https://sonicpc.vercel.app',
+    caseNote:
+      'Demuestra diseño de microaprendizaje gamificado con feedback inmediato.',
   },
   {
     title: 'Controllab Administrativo',
