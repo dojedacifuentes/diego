@@ -161,7 +161,8 @@ export const projects: Project[] = [
     problem:
       'Gestión integral de pacientes, citas, notas clínicas y seguimiento para profesional de salud.',
     tags: ['App médica', 'Dashboard clínico', 'Salud'],
-    status: 'Prototipo',
+    status: 'Demo funcional',
+    demoUrl: 'https://dr-gabrielmena.vercel.app',
     caseNote:
       'Demuestra adaptación de dashboards profesionales a contextos de salud y seguimiento clínico.',
   },
@@ -172,9 +173,10 @@ export const projects: Project[] = [
       'Landing comercial inteligente para empresa de energía solar: simulador de ahorro, captación de leads, panel de gestión y analytics.',
     problem:
       'Captación de clientes, simulación de ahorro energético y gestión de leads para empresa comercial.',
-    tags: ['Landing comercial', 'Simulador', 'Leads', 'Next.js 16'],
+    tags: ['Landing comercial', 'Simulador', 'Leads', 'CRM', 'Next.js 16'],
     status: 'Demo funcional',
-    caseNote: 'Demuestra landing comercial con simulador de ahorro y captación de leads.',
+    demoUrl: 'https://solergysoluciones.vercel.app',
+    caseNote: 'Demuestra landing comercial con simulador de ahorro, CRM y captación de leads.',
   },
   {
     title: 'El Jardín de Mónica',
@@ -185,6 +187,7 @@ export const projects: Project[] = [
       'Crear un espacio digital accesible, personalizado y emocional para usuario adulto no técnico.',
     tags: ['App personal', 'React + Vite', 'Accesibilidad'],
     status: 'Demo funcional',
+    demoUrl: 'https://monicagarden.vercel.app',
     caseNote:
       'Demuestra diseño accesible y personalización profunda para usuarios no técnicos.',
   },
