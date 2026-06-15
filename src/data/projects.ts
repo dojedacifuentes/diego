@@ -72,6 +72,7 @@ export const projects: Project[] = [
     tags: ['IA jurídica', 'Prompting', 'Next.js 16', 'jsPDF', 'Legaltech'],
     status: 'Demo funcional',
     demoUrl: 'https://taller-diat.vercel.app',
+    repoUrl: 'https://github.com/dojedacifuentes/taller-diat',
     featured: true,
     caseNote:
       'Demuestra diseño de plataformas formativas, organización modular y experiencia académica aplicada.',
@@ -90,6 +91,35 @@ export const projects: Project[] = [
     featured: true,
     caseNote:
       'Cobertura institucional PUCV. Dos ediciones del taller lideradas y diseñadas por mí.',
+  },
+  {
+    title: 'Marea — Workspace Jurídico',
+    category: 'Legaltech',
+    description:
+      'App personalizada para abogada académica: gestión de interrogaciones, magíster, flashcards jurídicas, tareas, biblioteca normativa, modo focus y sistema de recompensas. Layout responsive con drawer móvil.',
+    problem:
+      'Centralizar herramientas académicas y jurídicas en un espacio digital funcional, accesible y personalizado.',
+    tags: ['App jurídica', 'Workspace', 'React + Vite', 'Legaltech'],
+    status: 'Demo funcional',
+    demoUrl: 'https://holavale.vercel.app',
+    repoUrl: 'https://github.com/dojedacifuentes/marea',
+    featured: true,
+    caseNote:
+      'Demuestra personalización de herramientas jurídicas para flujos reales de trabajo académico.',
+  },
+  {
+    title: 'Umbral — Comprensión lectora jurídica',
+    category: 'Herramientas de estudio',
+    description:
+      'Plataforma para entrenar la comprensión lectora jurídica de primer año de Derecho: Archivo, Laboratorio, Arena y Taller, con estética de terminal oscura y feedback sonoro.',
+    problem:
+      'Entrenar la lectura y comprensión de textos jurídicos densos desde el inicio de la carrera.',
+    tags: ['EdTech jurídica', 'Comprensión lectora', 'Next.js', 'Estudio'],
+    status: 'Demo funcional',
+    demoUrl: 'https://umbral-tau.vercel.app',
+    repoUrl: 'https://github.com/dojedacifuentes/umbral',
+    caseNote:
+      'Demuestra diseño de experiencias de estudio inmersivas para formación jurídica temprana.',
   },
   {
     title: 'Conversaciones DIAT',
@@ -118,16 +148,32 @@ export const projects: Project[] = [
       'Demuestra comunicación técnica accesible y producción de contenido de divulgación.',
   },
   {
-    title: 'Marea — Workspace Jurídico',
+    title: 'LexFeedback Benfeld',
     category: 'Legaltech',
     description:
-      'App personalizada para abogada académica: gestión de interrogaciones, magíster, flashcards jurídicas, tareas, biblioteca normativa, modo focus y sistema de recompensas.',
+      'Herramienta de práctica y retroalimentación para interrogación oral y litigación, con módulo de interrogación oral y feedback estructurado.',
     problem:
-      'Centralizar herramientas académicas y jurídicas en un espacio digital funcional, accesible y personalizado.',
-    tags: ['App jurídica', 'Workspace', 'React + Vite', 'Legaltech'],
+      'Practicar la interrogación oral y recibir retroalimentación accionable, no solo teoría.',
+    tags: ['Legaltech', 'Litigación', 'Interrogación oral', 'Feedback'],
     status: 'Demo funcional',
+    demoUrl: 'https://lexfeedback-benfeld.vercel.app',
+    repoUrl: 'https://github.com/dojedacifuentes/lexfeedback-benfeld',
     caseNote:
-      'Demuestra personalización de herramientas jurídicas para flujos reales de trabajo académico.',
+      'Demuestra diseño de herramientas de práctica y evaluación para destrezas de litigación.',
+  },
+  {
+    title: 'LegalFlow — Laboral Chile',
+    category: 'Legaltech',
+    description:
+      'Aplicación de Derecho Laboral chileno: flujos guiados para orientar y ordenar escenarios laborales.',
+    problem:
+      'Ordenar y resolver escenarios de derecho laboral chileno con una herramienta clara.',
+    tags: ['Legaltech', 'Derecho Laboral', 'Chile', 'Next.js'],
+    status: 'Demo funcional',
+    demoUrl: 'https://legalflow-teal.vercel.app',
+    repoUrl: 'https://github.com/dojedacifuentes/legalflow',
+    caseNote:
+      'Demuestra traducción de un área normativa concreta en un flujo digital utilizable.',
   },
   {
     title: 'Lex RPG — Examen de Grado',
@@ -139,6 +185,7 @@ export const projects: Project[] = [
     tags: ['RPG', 'Gamificación', 'Examen de Grado', 'Procesal', 'Civil'],
     status: 'Demo funcional',
     demoUrl: 'https://rpgproce.vercel.app',
+    repoUrl: 'https://github.com/dojedacifuentes/rpgproce',
     caseNote:
       'Demuestra gamificación del aprendizaje jurídico con sistemas interactivos de memoria activa.',
   },
@@ -152,6 +199,7 @@ export const projects: Project[] = [
     tags: ['Derecho Sucesorio', 'Casos', 'Examen de Grado', 'Estudio'],
     status: 'Demo funcional',
     demoUrl: 'https://sucesorio.vercel.app',
+    repoUrl: 'https://github.com/dojedacifuentes/sucesorio',
     caseNote:
       'Demuestra conversión de materia jurídica densa en práctica de casos progresiva.',
   },
@@ -165,20 +213,23 @@ export const projects: Project[] = [
     tags: ['Quizzes', 'Gamificación', 'Estudio', 'Spaced repetition'],
     status: 'Demo funcional',
     demoUrl: 'https://sonicpc.vercel.app',
+    repoUrl: 'https://github.com/dojedacifuentes/SONICPC',
     caseNote:
       'Demuestra diseño de microaprendizaje gamificado con feedback inmediato.',
   },
   {
-    title: 'Controllab Administrativo',
+    title: 'Procesal Civil · IA',
     category: 'Administrativo y Público',
     description:
-      'Plataforma académica para el estudio de Derecho Administrativo: control de la actividad pública, procedimientos, potestad sancionadora, casos y sistematización normativa.',
+      'Herramienta de Derecho Procesal Civil asistida por IA: apoyo al estudio y análisis de procedimiento civil.',
     problem:
-      'Organizar y estudiar materias complejas de Derecho Administrativo de forma estructurada.',
-    tags: ['Derecho Administrativo', 'Educación jurídica', 'Next.js 16'],
-    status: 'Prototipo',
+      'Abordar el procedimiento civil de forma estructurada y asistida, no solo con código en mano.',
+    tags: ['Derecho Procesal', 'IA aplicada', 'Educación jurídica', 'Next.js'],
+    status: 'Demo funcional',
+    demoUrl: 'https://procesal-civil-ia.vercel.app',
+    repoUrl: 'https://github.com/dojedacifuentes/procesal-civil-ia',
     caseNote:
-      'Demuestra transformación de contenidos académicos complejos en experiencias digitales.',
+      'Demuestra IA aplicada a la sistematización y estudio de una materia procesal compleja.',
   },
   {
     title: 'Dr. Gabriel Mena',
@@ -190,6 +241,7 @@ export const projects: Project[] = [
     tags: ['App médica', 'Dashboard clínico', 'Salud'],
     status: 'Demo funcional',
     demoUrl: 'https://dr-gabrielmena.vercel.app',
+    repoUrl: 'https://github.com/dojedacifuentes/dr-gabrielmena',
     caseNote:
       'Demuestra adaptación de dashboards profesionales a contextos de salud y seguimiento clínico.',
   },
@@ -203,6 +255,7 @@ export const projects: Project[] = [
     tags: ['Landing comercial', 'Simulador', 'Leads', 'CRM', 'Next.js 16'],
     status: 'Demo funcional',
     demoUrl: 'https://solergysoluciones.vercel.app',
+    repoUrl: 'https://github.com/dojedacifuentes/solergy',
     caseNote: 'Demuestra landing comercial con simulador de ahorro, CRM y captación de leads.',
   },
   {
@@ -215,6 +268,7 @@ export const projects: Project[] = [
     tags: ['App personal', 'React + Vite', 'Accesibilidad'],
     status: 'Demo funcional',
     demoUrl: 'https://monicagarden.vercel.app',
+    repoUrl: 'https://github.com/dojedacifuentes/monicagarden',
     caseNote:
       'Demuestra diseño accesible y personalización profunda para usuarios no técnicos.',
   },
