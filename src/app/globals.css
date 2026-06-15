@@ -679,6 +679,18 @@ html {
   100% { top: 105%; opacity: 0; }
 }
 
+/* ── Sparkline bars — gentle live-data ripple ─────────────────── */
+@keyframes bar-pulse {
+  0%, 100% { transform: scaleY(0.4); }
+  50%      { transform: scaleY(1); }
+}
+@layer utilities {
+  .spark-bar {
+    transform-origin: bottom;
+    animation: bar-pulse 1.9s ease-in-out infinite;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
   .glitch::before, .glitch::after { animation: none !important; opacity: 0 !important; }
@@ -686,4 +698,5 @@ html {
   .caret::after { animation: none; }
   .aurora-blob { animation: none !important; }
   .scan-line { animation: none; opacity: 0; }
+  .spark-bar { animation: none !important; transform: scaleY(0.7); }
 }

@@ -220,20 +220,6 @@ export const projects: Project[] = [
       'Demuestra diseño de microaprendizaje gamificado con feedback inmediato.',
   },
   {
-    title: 'Procesal Civil · IA',
-    category: 'Administrativo y Público',
-    description:
-      'Herramienta de Derecho Procesal Civil asistida por IA: apoyo al estudio y análisis de procedimiento civil.',
-    problem:
-      'Abordar el procedimiento civil de forma estructurada y asistida, no solo con código en mano.',
-    tags: ['Derecho Procesal', 'IA aplicada', 'Educación jurídica', 'Next.js'],
-    status: 'Demo funcional',
-    demoUrl: 'https://procesal-civil-ia.vercel.app',
-    repoUrl: 'https://github.com/dojedacifuentes/procesal-civil-ia',
-    caseNote:
-      'Demuestra IA aplicada a la sistematización y estudio de una materia procesal compleja.',
-  },
-  {
     title: 'Dr. Gabriel Mena',
     category: 'Apps personalizadas',
     description:
